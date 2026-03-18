@@ -17,6 +17,7 @@ metadata:
 | `references/execution-state-template.md` | 执行状态文件完整模板 | 创建状态文件时参考 |
 | `references/workflow-examples.md` | 详细工作流程示例 | 需要参考具体执行示例时 |
 | `references/completion-report-template.md` | 完成报告模板 | 阶段三生成报告时参考 |
+| `references/error-log-guide.md` | 错误经验库维护指南 | 读取/更新错误经验库时参考 |
 
 ---
 
@@ -188,6 +189,12 @@ metadata:
 7. 如果计划指定，则提交（频繁提交）
 ```
 
+**错误发生时**：
+- 检查项目是否存在 `design/context/error-log.md`，如不存在则创建
+- 根据错误类型分类（执行错误/假设错误/规范违反）
+- 分析错误原因并追加记录教训到错误经验库
+- 参考 [error-log-guide.md](references/error-log-guide.md) 进行记录
+
 ### 2.1.1 注释补充（可选）
 
 **前提条件**：项目中存在 `code-commentator` 技能。
@@ -315,7 +322,12 @@ metadata:
 2. 解释您尝试了什么
 3. 提出具体问题
 4. 更新执行状态文件中的"遇到的问题"
-5. 在继续之前等待指导
+5. **分析错误原因并追加记录到错误经验库**：
+   - 检查项目是否存在 `design/context/error-log.md`，如不存在则创建
+   - 根据错误类型分类（执行错误/假设错误/规范违反）
+   - 记录错误教训和预防检查点
+   - 参考 [error-log-guide.md](references/error-log-guide.md) 进行记录
+6. 在继续之前等待指导
 
 ---
 

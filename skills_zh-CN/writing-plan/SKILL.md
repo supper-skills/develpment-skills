@@ -23,6 +23,7 @@ metadata:
 | [change-management.md](references/change-management.md) | 计划变更管理 | 发生变更时 |
 | [quality-checklist.md](references/quality-checklist.md) | 质量检查清单 | 最终检查时 |
 | [workflow-examples.md](references/workflow-examples.md) | 流程图和示例 | 理解流程时 |
+| [error-log-guide.md](references/error-log-guide.md) | 错误经验库维护指南 | 读取/更新错误经验库时参考 |
 
 ---
 
@@ -328,6 +329,19 @@ metadata:
 
 ## 阶段 4/7：任务定义
 
+### 4.0 错误经验库查询
+
+**在定义任务前，检查并读取错误经验库**：
+
+1. 检查项目是否存在 `design/context/error-log.md`
+2. 如存在，读取并了解历史错误模式
+3. 根据当前任务类型，查询相关分类的错误记录：
+   - **文件结构相关任务** → 查询"计划遗漏"、"假设错误"分类
+   - **依赖管理任务** → 查询"计划遗漏"分类
+   - **代码规范相关任务** → 查询"规范违反"分类
+4. 将预防检查点纳入任务定义
+5. **如发现新错误模式，必须追加记录到错误经验库**（见 [error-log-guide.md](references/error-log-guide.md)）
+
 ### 4.1 任务粒度
 
 每个步骤应对应**一个操作**（耗时 2-5 分钟）。
@@ -341,6 +355,8 @@ metadata:
 - 创建：`exact/path/to/file.<ext>`
 - 修改：`exact/path/to/existing.<ext>#L123-145`
 - 测试：`tests/exact/path/to/test.<ext>`
+
+**预防检查点：**（从错误经验库查询获得，如存在）
 
 - [ ] **步骤 1：编写失败测试**
 
