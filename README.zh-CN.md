@@ -35,6 +35,8 @@ brainstorming → writing-plan → executing-plans
 - **技术选型**：系统性的技术选择评估框架
 - **风险评估**：在设计阶段识别和评估潜在风险
 
+**参考文档**：faq.md、project-initialization-guide.md、risk-assessment-template.md、spec-document-reviewer-prompt.md、spec-template.md、state-template.md、tech-selection-guide.md
+
 #### writing-plan
 
 多步骤任务的实施计划创建技能，提供以下能力：
@@ -47,6 +49,8 @@ brainstorming → writing-plan → executing-plans
 - **回滚策略**：为实施失败准备计划
 - **审阅循环**：迭代审阅和质量检查点
 
+**参考文档**：plan-document-reviewer-prompt.md、plan-template.md、patterns.md、planning-guides.md、change-management.md、quality-checklist.md、workflow-examples.md
+
 #### executing-plans
 
 包含审查检查点的实施计划执行技能，提供以下能力：
@@ -58,6 +62,8 @@ brainstorming → writing-plan → executing-plans
 - **阻碍处理**：遇到障碍时停止并寻求帮助
 - **进度持久化**：使用任务标记追踪进度，支持中断后恢复
 - **恢复机制**：从中断点恢复执行并验证
+
+**参考文档**：completion-report-template.md、execution-state-template.md、workflow-examples.md
 
 ---
 

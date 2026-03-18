@@ -1,52 +1,73 @@
 ---
 name: writing-plan
-description: Implementation plan creation skill for multi-step tasks. Use this skill BEFORE touching any code when you have specifications or requirements. Creates comprehensive implementation plans assuming engineers have zero knowledge of the codebase. Triggers when users mention "create plan", "implementation plan", "write plan", "planning", "task breakdown", or when starting complex multi-step development work with existing specs.
+description: Implementation plan creation skill for multi-step tasks. Use this skill when you have a specification or requirements and before directly touching any code. Creates a comprehensive implementation plan, assuming the engineer has zero knowledge of the codebase. Triggered when users mention "create plan", "implementation plan", "write plan", "planning", "task breakdown", or start complex multi-step development work with existing specifications.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "2.3.0"
 ---
 
 # Writing Plan Skill
 
-This skill creates comprehensive implementation plans for multi-step development tasks. Use this BEFORE directly touching any code when you have specifications or requirements.
-
-## Trigger Conditions
-
-Activate this skill proactively when:
-
-- User mentions "create plan", "implementation plan", "write plan"
-- User mentions "task breakdown", "break down tasks", "decompose tasks"
-- Starting complex multi-step development work with existing specifications
-- User provides requirements/specifications and wants to plan before implementation
-- User asks for detailed steps to implement a feature
-- If brainstorming is also triggered, prioritize brainstorming skill
-
-### Called by Other Skills
-
-When called by brainstorming skill:
-
-1. Receives parameter: specification document path
-2. Skips trigger condition check
-3. Proceeds directly to Phase 1
+This skill is used for creating comprehensive implementation plans for multi-step development tasks. Use when you have a specification or requirements, and before directly touching any code.
 
 ---
 
-## Core Principles
+## Reference Document Index
 
-### Start Declaration
+| Document | Purpose | When to Read |
+|----------|---------|--------------|
+| [plan-template.md](references/plan-template.md) | Plan template | Reference when writing plans |
+| [plan-document-reviewer-prompt.md](references/plan-document-reviewer-prompt.md) | Review criteria | Reference when reviewing |
+| [patterns.md](references/patterns.md) | Common plan pattern library | When common patterns identified |
+| [planning-guides.md](references/planning-guides.md) | Dependency management, environment configuration, rollback strategy | When detailed planning needed |
+| [change-management.md](references/change-management.md) | Plan change management | When changes occur |
+| [quality-checklist.md](references/quality-checklist.md) | Quality checklist | During final check |
+| [workflow-examples.md](references/workflow-examples.md) | Flowcharts and examples | When understanding workflows |
 
-Always begin by declaring:
+---
+
+## Core Constraints
+
+> ⚠️ The following rules must always be followed and never forgotten.
+
+### Prohibited Actions (Until Plan Complete)
+
+Before the plan is complete, **absolutely prohibited**:
+
+- ❌ Invoke any implementation skill
+- ❌ Write any code
+- ❌ Create or modify project files (except plan documents)
+- ❌ Take any implementation action
+
+**No exceptions**: No matter how simple the project appears, this workflow must be followed.
+
+### Termination Condition
+
+The **only way to terminate** this skill is by completing the plan document and notifying the user that it's ready for execution.
+
+### Activation Declaration
+
+Upon skill activation, immediately declare:
 
 > "I am using the writing-plan skill to create an implementation plan."
 
-### Target Audience Assumptions
+### Phase Declaration
+
+At the start of each conversation round, declare the current progress:
+
+> 【Plan Writing Phase X/7】Currently executing: [Phase Name]
+> Current processing: [Subsystem Name] (if applicable)
+
+---
+
+## Target Audience Assumption
 
 Assume the engineer reading this plan:
 
 - Has **zero knowledge** of our codebase
 - Has **questionable taste** in software design
-- Is a **skilled developer** but unfamiliar with our toolset or problem domain
-- Is **not well-versed** in good test design
+- Is a **skilled developer** but unfamiliar with our tooling or problem domain
+- Is **not familiar** with good testing design
 
 Your plan must document everything they need to know.
 
@@ -55,116 +76,263 @@ Your plan must document everything they need to know.
 - **DRY** (Don't Repeat Yourself) - No redundant information
 - **YAGNI** (You Aren't Gonna Need It) - Only implement what's needed
 - **TDD** (Test-Driven Development) - Write tests first
-- **Frequent Commits** - Commit after each working step
+- **Frequent commits** - Commit after each working step
 
 ---
 
-## Phase 1: Context and Scope Analysis
+## Outline File Mechanism
 
-### 1.1 Context Setup
+**Purpose**: Solve the attention loss problem in multi-round conversations, uniformly manage project information, decision records, and progress.
 
-This skill should run in a dedicated working tree (created by brainstorming skill if available).
+**Operation**: Immediately create an outline file upon skill activation:
 
-### 1.2 Scope Check
+- **Path**: `design/plans/YYYY-MM-DD-<topic>-outline.md`
+- **Purpose**: Record session state, decision records, project information, subsystem progress
 
-**Critical**: Before proceeding, evaluate if the specification covers multiple independent subsystems.
+**At the start of each conversation**:
 
-If the specification spans multiple independent subsystems:
+1. Read outline file
+2. Restore context based on outline file (including decisions already made)
+3. Declare current phase
 
-1. **Stop and recommend splitting** into separate sub-project specifications
-2. Each plan should produce runnable, testable files
-3. Each subsystem gets its own plan
+**After completing each subsystem plan**:
 
-If not split, suggest decomposition into independent plans - one per subsystem.
+1. Update subsystem status in outline file
+2. Check if can proceed to next subsystem
 
-### 1.3 Ask for Save Location
+### Outline File Template
 
-Ask the user where to save the plan:
+```markdown
+# [Project Name] Implementation Plan Outline
+
+## Session State
+
+- **Specification Document**: [Source specification document path]
+- **Current Phase**: Phase X/7: [Phase Name]
+- **Current Processing**: [Subsystem Name or "Single Subsystem"]
+- **Next Action**: [Specific action]
+- **Pending Issues**: [Issue list, leave empty if none]
+
+## Decision Records
+
+| Decision | Rationale | Impact Scope | Decision Time |
+|----------|-----------|-------------|---------------|
+| [Decision content] | [Why this decision] | [Which modules/subsystems affected] | YYYY-MM-DD |
+
+## Project Overview
+
+[One sentence describing project goal]
+
+## Subsystem Division (Fill for multi-subsystem projects)
+
+### Subsystem A: [Name]
+
+- **Scope**: [Feature scope description]
+- **Dependency**: None
+- **Plan Document**: `design/plans/YYYY-MM-DD-subsystem-a.md`
+- **Status**: ⏳ Pending / 🔄 In Progress / ✅ Complete
+
+## Execution Order (Fill for multi-subsystem projects)
+
+1. Subsystem A (no dependency, execute first)
+2. Subsystem B (depends on A)
+
+## Shared Components (Fill for multi-subsystem projects)
+
+| Component | Using Subsystems | Plan Location |
+|-----------|-----------------|---------------|
+| [Component name] | A, B | Defined in Subsystem A plan |
+
+## Change History
+
+| Change Time | Change Content | Impact Scope | Change Reason |
+|------------|----------------|-------------|--------------|
+| YYYY-MM-DD | [Change content] | [Impact scope] | [Change reason] |
+
+## Global Constraints
+
+- [Constraints applicable to all subsystems/the entire project]
+```
+
+**Single subsystem projects**: Only need to fill in "Session State", "Decision Records", "Project Overview", "Global Constraints", other sections can be omitted.
+
+---
+
+## Phase 1/7: Context and Scope Analysis
+
+### 1.1 Receive Input
+
+Receive from brainstorming skill:
+
+- Specification document path
+- Project background information
+
+### 1.2 Create Outline File
+
+Immediately create outline file: `design/plans/YYYY-MM-DD-<topic>-outline.md`
+
+### 1.3 Scope Check and Subsystem Identification
+
+**Key**: Before proceeding, evaluate if the specification covers multiple independent subsystems.
+
+**Subsystem Identification Criteria**:
+
+| Characteristic | Description |
+|---------------|-------------|
+| Independent data model | Subsystem has independent data structure |
+| Independent interface | Subsystem provides independent API externally |
+| Independent deployment | Subsystem can be deployed and run independently |
+| Clear boundaries | Subsystems communicate through explicit interfaces |
+
+**Handling Strategy**:
+
+- **Single subsystem**: Proceed directly to Phase 2
+- **Multiple subsystems**: Proceed to multi-subsystem handling flow (see [workflow-examples.md](references/workflow-examples.md))
+
+### 1.4 Multi-Subsystem Handling Flow
+
+When multiple subsystems are identified:
+
+**Step 1: Analyze Subsystem Dependencies**
+
+Record dependency analysis in outline file:
+
+```markdown
+## Subsystem Dependency Analysis
+
+| Subsystem | Depends On | Depended On By |
+|-----------|-----------|---------------|
+| SubsystemA | None | B, C |
+| SubsystemB | A | C |
+```
+
+**Step 2: Enhance Outline File**
+
+Fill in "Subsystem Division", "Execution Order", "Shared Components" sections of the outline file.
+
+**Step 3: Write Plans for Subsystems One by One
+
+- Only handle one subsystem at a time
+- Before starting, read outline to confirm dependencies are satisfied
+- After completion, update status in outline
+- Continue to next subsystem
+
+### 1.5 Ask About Save Location
+
+Ask user where to save the plan:
 
 - Default directory: `design/plans/`
 - File name format: `YYYY-MM-DD-<feature-name>.md`
 
-Always inform the user of the default directory as an option.
+### 1.6 Record Key Decisions
+
+During plan writing, must record decisions when encountering:
+
+| Decision Type | Example |
+|--------------|---------|
+| Technology selection | Choose framework, library, database |
+| Architecture decision | Layered structure, communication method |
+| Design pattern | Which design pattern to use |
+| Implementation strategy | How to handle edge cases |
+
+### 1.7 Scope Review
+
+Present scope analysis results to user for confirmation:
+
+> "Scope analysis complete. Please confirm the following:
+>
+> **Subsystem Division**: [List identified subsystems]
+> **Dependency Relationships**: [List dependency relationships]
+> **Execution Order**: [List execution order]
+> **Key Decisions**: [List recorded decisions]
+>
+> Is the above correct? Please let me know if any adjustments are needed."
+
+**Completion Criteria**:
+
+- Outline file created
+- Subsystems identified and recorded
+- Save location confirmed
+- Key decisions recorded
 
 ---
 
-## Phase 2: File Structure Planning
+## Phase 2/7: File Structure Planning
 
 **Before defining tasks**, plan which files will be created or modified and their responsibilities.
 
 ### 2.1 Design Principles
 
-Design units with clear boundaries and well-defined interfaces:
-
-- **Single Responsibility**: Each file should have one clear responsibility
-- **Context-Friendly**: Code that can be understood in one context window
-- **Focused Files**: Prefer small, focused files over large, multi-function files
-- **Co-location**: Files that change together should be placed together
+- **Single Responsibility**: Each file should have a single clear responsibility
+- **Context Friendly**: Code that can be understood in one context window
+- **Focused Files**: Prefer small, focused files over large multi-purpose files
+- **Colocation**: Files that change together should be placed together
 - **Split by Responsibility**: Organize by responsibility, not by technical layer
 
 ### 2.2 Existing Codebase Patterns
 
-In existing codebases:
+In existing codebase:
 
 - Follow established patterns
 - Don't unilaterally refactor large files
-- If modifying a bloated file, **ask the developer** whether to include splitting in the plan
-- Only add file splitting to the plan after receiving explicit confirmation from the developer
+- If modifying bloated files, **ask developer** if refactoring should be included in the plan
 
 ### 2.3 File Structure Template
-
-Document the planned file structure (adapt file extensions to the project's language):
 
 ```markdown
 ## File Structure
 
 ### New Files
-- `path/to/new/file.<ext>` - Description of responsibility
-- `path/to/another/file.<ext>` - Description of responsibility
+- `path/to/new/file.<ext>` - Responsibility description
 
-### Modified Files
-- `path/to/existing/file.<ext>` - What will be modified
-- `path/to/another/existing.<ext>` - What will be modified
+### Modify Files
+- `path/to/existing/file.<ext>` - Content to be modified
 
 ### Test Files
-- `tests/path/to/test_file.<ext>` - Test responsibilities
+- `tests/path/to/test_file.<ext>` - Test responsibility
 ```
+
+### 2.4 Structure Review
+
+Present file structure to user for confirmation:
+
+> "File structure planning complete. Please confirm the following:
+>
+> **New Files**: [List new files and responsibilities]
+> **Modify Files**: [List modify files and modifications]
+> **Test Files**: [List test files]
+>
+> Is the above file structure reasonable? Please let me know if any adjustments are needed."
 
 ---
 
-## Phase 3: Plan Document Header
+## Phase 3/7: Plan Document Title
 
-Every plan must start with this header:
+Each plan must start with this title:
 
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** REQUIRED: Use executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For Agent Workers:** Required: Use executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** [One sentence describing what this builds]
+**Goal:** [One sentence describing what this feature builds]
 
-**Architecture:** [2-3 sentences about approach]
+**Architecture:** [2-3 sentences about the approach]
 
 **Tech Stack:** [Key technologies/libraries]
 
----
+**Outline File:** [Outline file path] (if applicable)
 ```
 
 ---
 
-## Phase 4: Task Definition
+## Phase 4/7: Task Definition
 
 ### 4.1 Task Granularity
 
-Each step should correspond to **one operation** (taking 2-5 minutes):
-
-- "Write failing test" - one step
-- "Run test to confirm failure" - one step
-- "Run test and ensure pass" - one step
+Each step should correspond to **one operation** (takes 2-5 minutes).
 
 ### 4.2 Task Structure Template
-
-Each task follows this structure. Adapt the code examples and test commands to the project's programming language:
 
 ```markdown
 ### Task N: [Component Name]
@@ -174,43 +342,32 @@ Each task follows this structure. Adapt the code examples and test commands to t
 - Modify: `exact/path/to/existing.<ext>#L123-145`
 - Test: `tests/exact/path/to/test.<ext>`
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Write failing test**
 
 ```<language>
-// Example: TypeScript
-describe('functionName', () => {
-  it('should return expected result for given input', () => {
-    const result = functionName(input);
-    expect(result).toBe(expected);
-  });
-});
+// Example code
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [ ] **Step 2: Run test to verify failure**
 
-Run: `<test-command>` (e.g., `npm test`, `pytest`, `cargo test`)
-Expected: FAIL with appropriate error message
+Run: `<test-command>`
+Expected: Fail, showing appropriate error message
 
 - [ ] **Step 3: Write minimal implementation**
 
 ```<language>
-// Minimal implementation to pass the test
-export function functionName(input: InputType): OutputType {
-  return expected;
-}
+// Minimal implementation that passes the test
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [ ] **Step 4: Run test to verify pass**
 
 Run: `<test-command>`
-Expected: PASS
+Expected: Pass
 
-### 4.3 Language-Specific Test Commands
-
-Common test commands by language:
+### 4.3 Test Commands by Language
 
 | Language | Test Framework | Command |
-|----------|---------------|---------|
+|---------|----------------|---------|
 | TypeScript/JavaScript | Jest | `npm test` or `jest tests/path/test.ts` |
 | TypeScript/JavaScript | Vitest | `vitest run tests/path/test.ts` |
 | Python | pytest | `pytest tests/path/test.py::test_name -v` |
@@ -221,377 +378,207 @@ Common test commands by language:
 
 ### 4.4 Task Requirements
 
-- **Exact file paths** - No vague references
+- **Precise file paths** - No ambiguous references
 - **Complete code in plan** - Not "add validation" but actual code
-- **Precise commands** - Exact commands with expected output
-- **Test-first approach** - Every task starts with a failing test
-- **Language-appropriate** - Use the project's programming language for all examples
+- **Precise commands** - Exact commands and expected output
+- **Test-first approach** - Each task starts with failing test
+- **Language adaptation** - Use project's programming language for all examples
+
+### 4.5 Task Review
+
+Present task overview to user for confirmation:
+
+> "Task definition complete. Please confirm the following:
+>
+> **Total Tasks**: [Count]
+> **Task List**:
+> 1. [Task Name] - [File]
+> ...
+>
+> Is the above task definition reasonable? Please let me know if any adjustments are needed."
 
 ---
 
-## Dependency Management Planning
+## Phase 5/7: Chunking Output and Review
 
-Must explicitly define dependency management strategy in the plan to ensure smooth implementation.
+### 5.1 Chunking Strategy
 
-### Dependency Identification
+| Metric | Standard | Reason |
+|--------|----------|--------|
+| Lines | 300-500 lines | Fit AI context window |
+| Tasks | 5-10 tasks | Maintain logical integrity |
+| Dependencies | Self-contained within chunk | Reduce cross-chunk references |
 
-**Types of dependencies to identify:**
+**Chunk Boundary Identification**:
 
-| Dependency Type | Description | Examples |
-|-----------------|-------------|----------|
-| Runtime Dependencies | Packages required for application to run | `express`, `lodash`, `axios` |
-| Development Dependencies | Packages only needed in development environment | `typescript`, `jest`, `eslint` |
-| Peer Dependencies | Packages that need to be provided by consumers | `react`, `vue` |
-| Optional Dependencies | Non-essential but enhancing packages | Profiling tools, debugging tools |
+1. **Chunk by functional module**: Related tasks belong to one chunk
+2. **Chunk by implementation phase**: Such as "infrastructure", "core features", "integration testing"
+3. **Chunk by subsystem**: Each subsystem is one chunk
 
-### Dependency Installation Plan
-
-Include the following in the plan:
+### 5.2 Chunk Format
 
 ```markdown
-### Prerequisites: Dependency Installation
+## Chunk 1: Infrastructure
 
-**New Dependencies:**
-- `package-name@version` - Purpose description
-- `another-package@^1.2.0` - Purpose description
-
-**Installation Commands:**
-- [ ] Install runtime dependencies
-  Run: `pnpm add package-name@version`
-  Expected: Dependency added to package.json and installed successfully
-
-- [ ] Install development dependencies
-  Run: `pnpm add -D dev-package@version`
-  Expected: Dependency added to devDependencies and installed successfully
-```
-
-### Version Management Strategy
-
-**Version Locking Principles:**
-
-- Use exact versions or locked ranges for production dependencies
-- Use looser ranges (`^` or `~`) for development dependencies
-- Document reasons for choosing specific versions
-
-**Version Compatibility Checks:**
-
-- Check compatibility of new dependencies with existing ones
-- Identify potential version conflicts
-- Document solutions for conflicts
+### Task 1: Project Initialization
+...
 
 ---
 
-## Environment Configuration Planning
+## Chunk 2: Core Features
 
-Define configuration strategies for different environments to ensure code runs correctly in each.
-
-### Environment Types
-
-| Environment | Purpose | Configuration Characteristics |
-|-------------|---------|------------------------------|
-| Development | Local development debugging | Detailed logs, hot reload, mock data |
-| Testing | Automated testing | Isolated data, deterministic configuration |
-| Staging | Pre-production validation | Near-production config, real data subset |
-| Production | Official operation | Performance optimized, security hardened, minimal logs |
-
-### Configuration File Planning
-
-**Configuration File Structure:**
-
-```markdown
-### Environment Configuration Files
-
-**Create:**
-- `.env.example` - Environment variable template (commit to version control)
-- `.env.development` - Development environment config (do not commit)
-- `.env.test` - Test environment config (optional commit)
-- `.env.production` - Production environment config (do not commit, inject via CI/CD)
-
-**Configuration Items:**
-- `DATABASE_URL` - Database connection address
-- `API_KEY` - Third-party service key
-- `LOG_LEVEL` - Log level
-- `FEATURE_FLAGS` - Feature toggles
+### Task 3: Data Model
+...
 ```
 
-### Configuration Task Template
+### 5.3 Review Trigger Matrix
 
-````markdown
-### Task: Environment Configuration
+| Trigger Point | Review Type | Review Scope | Review Method |
+|--------------|-------------|-------------|--------------|
+| Phase 1 complete | Scope Review | User confirmation |
+| Phase 2 complete | Structure Review | Subsystem identification, dependency relationships | User confirmation |
+| Phase 4 complete | Task Review | Task definition | User confirmation |
+| Each chunk complete | Chunk Review | Code completeness, test coverage, precise paths | Sub-agent review |
+| Subsystem complete | Subsystem Review | Overall consistency, dependency satisfaction, shared components | Sub-agent review |
+| All complete | Final Review | All plans | User confirmation |
+| Change occurs | Change Review | Overall quality, execution order, outline completeness | Sub-agent review |
+| | | Change impact scope | Sub-agent review |
 
-**Files:**
-- Create: `.env.example`
-- Create: `src/config/index.ts`
+Detailed review criteria: see [plan-document-reviewer-prompt.md](references/plan-document-reviewer-prompt.md).
 
-- [ ] **Step 1: Create environment variable template**
-
-```
-# .env.example
-DATABASE_URL=postgresql://localhost:5432/dbname
-API_KEY=your-api-key-here
-LOG_LEVEL=debug
-```
-
-- [ ] **Step 2: Create configuration loading module**
-
-```typescript
-// src/config/index.ts
-export const config = {
-  database: {
-    url: process.env.DATABASE_URL || 'postgresql://localhost:5432/dev',
-  },
-  api: {
-    key: process.env.API_KEY,
-  },
-  log: {
-    level: process.env.LOG_LEVEL || 'info',
-  },
-};
-```
-````
-
-### Sensitive Information Handling
-
-**Security Principles:**
-
-- Never commit sensitive information (keys, passwords) to version control
-- Use environment variables or secret management services
-- Clearly mark which configurations require manual user setup in the plan
-
----
-
-## Rollback Strategy Planning
-
-Prepare rollback plans for implementation failures or unexpected situations to reduce risk.
-
-### Rollback Scenario Identification
-
-| Scenario | Trigger Condition | Rollback Strategy |
-|----------|-------------------|-------------------|
-| Dependency installation failure | Version conflicts, network issues | Restore package.json/lock files |
-| Persistent test failures | Unfixable test errors | Revert to last passing state |
-| Feature incompatibility | Integration with existing system fails | Undo related code changes |
-| Performance regression | Performance metrics not met | Revert performance-related changes |
-| Security issues | Security vulnerabilities discovered | Immediate rollback and fix |
-
-### Rollback Plan Template
-
-Include a rollback section in the plan:
-
-````markdown
-## Rollback Plan
-
-### Checkpoints
-
-| Checkpoint | Completed Tasks | Rollback Command |
-|------------|-----------------|------------------|
-| CP-1 | Dependency installation complete | `git checkout package.json pnpm-lock.yaml && pnpm install` |
-| CP-2 | Auth module complete | `git checkout src/auth/ tests/auth/` |
-| CP-3 | API integration complete | `git checkout src/api/ tests/api/` |
-
-### Rollback Steps
-
-**If implementation fails and rollback is needed:**
-
-1. **Stop current task**
-   - Document failure reason
-   - Save current progress
-
-2. **Determine rollback point**
-   - View recent checkpoints
-   - Confirm rollback scope
-
-3. **Execute rollback**
-   ```bash
-   # Rollback to specified checkpoint
-   git reset --hard <checkpoint-commit>
-   
-   # Or selective file rollback
-   git checkout <commit> -- path/to/files
-   ```
-
-4. **Verify rollback**
-   - Run tests to ensure system is normal
-   - Check if functionality is restored
-
-5. **Document issues**
-   - Record failure reason in design document
-   - Update plan to avoid repeating issues
-````
-
-### Git Branch Strategy
-
-**Recommended Branch Model:**
-
-```
-main (production)
-  └── develop (development)
-        └── feature/xxx (feature branch)
-```
-
-**Rollback-Friendly Practices:**
-
-- Create commit after each task completion
-- Use descriptive commit messages
-- Tag at key checkpoints
-- Keep commits atomic (one commit per logical change)
-
----
-
-## Phase 5: Plan Review Cycle
-
-### 5.1 Chunk Boundaries
-
-Divide the plan into chunks using `## Chunk N: <name>` headers:
-
-- Each chunk should be ≤1000 lines
-- Each chunk should be logically self-contained
-
-### 5.2 Review Process
+### 5.4 Chunk-Level Review Flow
 
 After completing each plan chunk:
 
-1. **Dispatch plan-document-reviewer subagent** to review the current chunk
-   - Provide: chunk content, specification document path
+1. **Dispatch plan document reviewer sub-agent** to review current chunk
+2. **If issues found (❌)**: Fix issues, re-review
+3. **If approved (✅)**: Continue to next part
 
-2. **If issues found (❌):**
-   - Fix issues in that code block
-   - Re-assign reviewer to that code block
-   - Repeat until approval (✅)
+### 5.5 Handling Multi-Subsystem Scenarios
 
-3. **If approved (✅):**
-   - Continue to next part (or hand off for execution if last part)
+**After each subsystem completes**:
 
-### 5.3 Review Guidelines
+1. Update subsystem status in outline file
+2. Confirm next subsystem's dependencies are satisfied
+3. Start writing plan for next subsystem
 
-- Fixes made by the same agent that created the plan (preserves context)
-- If review loop exceeds 5 iterations, request human guidance
-- Review feedback is advisory - if you disagree, explain reasoning
+**Coordination between subsystems**:
+
+- Shared components defined in first subsystem that uses them
+- Subsequent subsystems reference already-defined shared components
+- Record shared component locations in outline file
 
 ---
 
-## Phase 6: Execution Handoff
+## Phase 6/7: Plan Save and Confirmation
 
-### 6.1 Save the Plan
-
-After plan completion:
+### 6.1 Save Plan
 
 1. Save plan to user-specified directory (default: `design/plans/`)
-2. Use filename format: `YYYY-MM-DD-<feature-name>.md`
+2. Use file name format: `YYYY-MM-DD-<feature-name>.md`
+3. Update outline file to mark complete
 
-### 6.2 Handoff Message
+### 6.2 Final Review
 
-After saving, inform the user:
+Execute final review (checklist: see [quality-checklist.md](references/quality-checklist.md)):
 
-> "Plan completed and saved to `design/plans/<filename>.md`. Ready to execute?"
+1. **Overall quality check**
+2. **Execution order verification**
+3. **Outline completeness check**
 
-### 6.3 Execution Options
+### 6.3 User Confirms Plan
 
-- Execute plan in current session using executing-plans skill
-- Use batch execution mode with checkpoints for review
+After final review passes, **must ask user to confirm plan content**:
 
----
-
-## Phase 7: Quality Checklist
-
-### 7.1 Plan Completeness
-
-- [ ] Plan header is complete with Goal, Architecture, Tech Stack
-- [ ] File structure is documented before tasks
-- [ ] All file paths are exact and precise
-- [ ] All code snippets are complete (not placeholders)
-- [ ] All commands are precise with expected outputs
-
-### 7.2 Task Quality
-
-- [ ] Each task has clear file references (Create/Modify/Test)
-- [ ] Each step is granular (2-5 minutes)
-- [ ] Tests come before implementation
-- [ ] Each task is independently testable
-
-### 7.3 Scope Validation
-
-- [ ] Plan covers single cohesive feature/subsystem
-- [ ] If multiple subsystems, recommendation to split was made
-- [ ] Each chunk is ≤1000 lines and self-contained
+> "Plan complete and saved. Please confirm the following:
+>
+> **Plan Document**: `design/plans/<filename>.md`
+> **Key Decisions**: [List 2-3 most important decisions]
+> **Execution Order**: [List task/subsystem execution order]
+>
+> Does the plan content meet expectations? Please let me know if any modifications are needed."
 
 ---
 
-## Workflow Examples
+## Phase 7/7: Execution Handover
 
-### Example 1: TypeScript Project
+### 7.1 Ask About Execution Intent
 
-```
-User: I need to implement user authentication with JWT tokens. Here's my spec...
+After user confirms plan, **ask about execution intent**:
 
-Agent:
-1. Declares: "I am using the writing-plan skill to create an implementation plan."
-2. Asks where to save (default: design/plans/)
-3. Analyzes scope - confirms single subsystem
-4. Plans file structure:
-   - Create: src/auth/jwtHandler.ts
-   - Create: src/auth/middleware.ts
-   - Modify: src/config/settings.ts
-   - Test: tests/auth/jwtHandler.test.ts
-5. Writes plan with TDD approach using TypeScript/Jest
-6. Divides into chunks (≤1000 lines each)
-7. Runs review cycle on each chunk
-8. Saves final plan
-9. Asks: "Ready to execute?"
-```
+> "Plan confirmed. Would you like to start executing the plan now?
+>
+> Options:
+> - **Execute now**: Execute the plan in current session via executing-plans skill
+> - **Execute later**: Save the plan, execute manually later"
 
-### Example 2: Rust Project
+### 7.2 Wait for User Confirmation
 
-```
-User: I need to implement a caching layer for our API. Here's my spec...
+**If user selects "Execute now"**:
 
-Agent:
-1. Declares: "I am using the writing-plan skill to create an implementation plan."
-2. Asks where to save (default: design/plans/)
-3. Analyzes scope - confirms single subsystem
-4. Plans file structure:
-   - Create: src/cache/mod.rs
-   - Create: src/cache/memory.rs
-   - Create: src/cache/redis.rs
-   - Modify: src/api/handler.rs
-   - Test: tests/cache_test.rs
-5. Writes plan with TDD approach using Rust/cargo test
-6. Divides into chunks (≤1000 lines each)
-7. Runs review cycle on each chunk
-8. Saves final plan
-9. Asks: "Ready to execute?"
-```
+Invoke executing-plans skill, passing the following parameters:
 
-### Example 3: Python Project
+- **Plan Document Path**: `design/plans/YYYY-MM-DD-<feature-name>.md`
+- **Outline File Path** (if applicable): `design/plans/YYYY-MM-DD-<topic>-outline.md`
+- **Specification Document Path** (if applicable): Specification document path
+
+**Invocation format**:
 
 ```
-User: I need to implement a data processing pipeline. Here's my spec...
-
-Agent:
-1. Declares: "I am using the writing-plan skill to create an implementation plan."
-2. Asks where to save (default: design/plans/)
-3. Analyzes scope - confirms single subsystem
-4. Plans file structure:
-   - Create: src/pipeline/processor.py
-   - Create: src/pipeline/transformers.py
-   - Modify: src/config/settings.py
-   - Test: tests/pipeline/test_processor.py
-5. Writes plan with TDD approach using Python/pytest
-6. Divides into chunks (≤1000 lines each)
-7. Runs review cycle on each chunk
-8. Saves final plan
-9. Asks: "Ready to execute?"
+Invoke executing-plans skill with the following parameters:
+- Plan document path: design/plans/YYYY-MM-DD-<feature-name>.md
+- Outline file path: design/plans/YYYY-MM-DD-<topic>-outline.md (if applicable)
+- Specification document path: design/specs/YYYY-MM-DD-<topic>-design.md (if applicable)
 ```
+
+**Multi-subsystem projects**: Pass all subsystem plan document paths in execution order.
+
+**If user selects "Execute later"**: End this skill, inform user they can execute via executing-plans skill later
 
 ---
 
-## Notes
+## Change Management
 
-1. **Always declare skill usage** at the start
-2. **Never touch code** during planning - this is pre-implementation
-3. **Be precise** - exact paths, complete code, precise commands
-4. **Test-first always** - every implementation step follows a test
-5. **Chunk appropriately** - ≤1000 lines per chunk for review efficiency
-6. **Review iteratively** - fix issues before moving to next chunk
-7. **Save before execution** - plan must be persisted before handoff
-8. **Language-agnostic** - adapt all examples to the project's programming language
+When user requests plan modifications, execute the change management process. Detailed process: see [change-management.md](references/change-management.md).
+
+**Core steps**:
+
+1. Register change (in outline file "Change History" table)
+2. Impact analysis
+3. Update plan
+4. Change review
+5. Notify user
+
+---
+
+## Common Plan Patterns
+
+When common patterns are identified, directly reference predefined templates. Detailed patterns: see [patterns.md](references/patterns.md).
+
+| Pattern | Applicable Scenario |
+|---------|--------------------|
+| CRUD Module | Data create, read, update, delete operations |
+| Authentication Module | User authentication and authorization |
+| API Integration | Third-party service integration |
+| Middleware/Plugin | Request handling pipeline, plugin systems |
+
+---
+
+## Dependency and Environment Planning
+
+Detailed guide: see [planning-guides.md](references/planning-guides.md), including:
+
+- Dependency management planning
+- Environment configuration planning
+- Rollback strategy planning
+
+---
+
+## Flowcharts and Examples
+
+Detailed flowcharts and workflow examples: see [workflow-examples.md](references/workflow-examples.md), including:
+
+- Plan writing flowchart
+- Multi-subsystem handling flowchart
+- Workflow examples
+- Common issue handling

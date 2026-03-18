@@ -35,6 +35,8 @@ Mandatory first step before any creative work. This skill provides:
 - **Technology Selection**: Systematic evaluation framework for choosing technologies
 - **Risk Assessment**: Identifies and evaluates potential risks during design phase
 
+**Reference Documents**: faq.md, project-initialization-guide.md, risk-assessment-template.md, spec-document-reviewer-prompt.md, spec-template.md, state-template.md, tech-selection-guide.md
+
 #### writing-plan
 
 Implementation plan creation skill for multi-step tasks, providing the following capabilities:
@@ -47,6 +49,8 @@ Implementation plan creation skill for multi-step tasks, providing the following
 - **Rollback Strategy**: Prepares plans for implementation failures
 - **Review Cycle**: Iterative review with quality checkpoints
 
+**Reference Documents**: plan-document-reviewer-prompt.md, plan-template.md, patterns.md, planning-guides.md, change-management.md, quality-checklist.md, workflow-examples.md
+
 #### executing-plans
 
 Implementation plan execution skill with review checkpoints, providing the following capabilities:
@@ -58,6 +62,8 @@ Implementation plan execution skill with review checkpoints, providing the follo
 - **Blocker Handling**: Stops and seeks help when encountering obstacles
 - **Progress Persistence**: Tracks progress with task markers for recovery after interruption
 - **Recovery Mechanism**: Resume execution from interruption point with verification
+
+**Reference Documents**: completion-report-template.md, execution-state-template.md, workflow-examples.md
 
 ---
 

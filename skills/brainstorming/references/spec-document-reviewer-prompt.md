@@ -1,14 +1,14 @@
-# Spec Document Reviewer Prompt
+# Specification Document Reviewer Prompt
 
-This document provides instructions for reviewing design specification documents.
+This document provides guidance for reviewing design specification documents.
 
 ## Review Purpose
 
-Ensure each spec document meets quality standards before implementation planning. The reviewer validates completeness, consistency, and adherence to design principles.
+Ensure every specification document meets quality standards before entering the implementation planning phase. The reviewer verifies completeness, consistency, and adherence to design principles.
 
-## When to Dispatch
+## When to Deploy
 
-After writing spec document to `design/specs/` directory.
+After specification documents are written to the `design/specs/` directory.
 
 ---
 
@@ -17,175 +17,175 @@ After writing spec document to `design/specs/` directory.
 ### 1. Completeness
 
 - [ ] No TODO markers or placeholder text
-- [ ] No "TBD" or "to be defined later" sections
-- [ ] No "will spec when X is done" statements
+- [ ] No "TBD" or "to be defined" sections
+- [ ] No statements like "will spec after X is completed"
 - [ ] All sections have appropriate level of detail
-- [ ] No sections noticeably less detailed than others
+- [ ] No sections noticeably more brief than others
 
 ### 2. Coverage
 
-- [ ] Error handling is addressed
-- [ ] Edge cases are considered
-- [ ] Integration points are defined
-- [ ] Data flow is documented
+- [ ] Error handling covered
+- [ ] Edge cases considered
+- [ ] Integration points defined
+- [ ] Data flow recorded
 - [ ] Security considerations (if applicable)
 
 ### 3. Consistency
 
 - [ ] No internal contradictions
 - [ ] No conflicting requirements
-- [ ] Terminology is used consistently
-- [ ] References to external systems are clear
+- [ ] Consistent terminology usage
+- [ ] External system references clear
 
 ### 4. Clarity
 
-- [ ] No ambiguous requirements
-- [ ] Technical terms are defined or self-explanatory
-- [ ] Requirements are testable/verifiable
-- [ ] Acceptance criteria are clear
+- [ ] No vague requirements
+- [ ] Technical terms defined or self-evident
+- [ ] Requirements testable/verifiable
+- [ ] Acceptance criteria clear
 
 ### 5. YAGNI (You Aren't Gonna Need It)
 
 - [ ] No unrequested features
 - [ ] No over-engineering
-- [ ] No speculative future-proofing
-- [ ] Scope is focused on stated requirements
+- [ ] No speculative future预留
+- [ ] Scope focused on declared requirements
 
 ### 6. Scope Validation
 
-- [ ] Focused enough for a single implementation plan
+- [ ] Focused enough to produce a single implementation plan
 - [ ] Not covering multiple independent subsystems
-- [ ] If multiple subsystems, recommendation to split was made
-- [ ] Each subsystem can produce runnable, testable files
+- [ ] If multiple subsystems exist, split already suggested
+- [ ] Each subsystem can produce runnable, testable artifacts
 
 ### 7. Architecture Quality
 
 - [ ] Units have clear boundaries
-- [ ] Interfaces are well-defined
-- [ ] Each unit is independently understandable
-- [ ] Each unit is independently testable
-- [ ] Can understand what each unit does without reading internals
-- [ ] Internal implementation can change without affecting users
+- [ ] Interface definitions clear
+- [ ] Each unit independently understandable
+- [ ] Each unit independently testable
+- [ ] Each unit's function understandable without reading internal implementation
+- [ ] Internal implementation can change without affecting consumers
 
 ---
 
-## Critical Issues to Watch For
+## Issues Requiring Special Attention
 
 ### Placeholder Content
 
-❌ Bad:
+❌ Incorrect:
 ```
 ## Error Handling
 TODO: Define error handling strategy
 ```
 
-✅ Good:
+✅ Correct:
 ```
 ## Error Handling
-- Network errors: Retry with exponential backoff (max 3 retries)
+- Network errors: Exponential backoff retry (max 3 times)
 - Validation errors: Return 400 with detailed error messages
-- Authentication errors: Return 401 and redirect to login
+- Authentication errors: Return 401 and redirect to login page
 ```
 
 ### Vague Requirements
 
-❌ Bad:
+❌ Incorrect:
 ```
 The system should be fast and secure.
 ```
 
-✅ Good:
+✅ Correct:
 ```
 The system should respond to API requests within 200ms (p95).
-All API endpoints require authentication via JWT tokens.
+All API endpoints require JWT token authentication.
 ```
 
 ### Missing Boundaries
 
-❌ Bad:
+❌ Incorrect:
 ```
-The UserService handles user registration, authentication,
+UserService handles user registration, authentication,
 profile management, notifications, and analytics.
 ```
 
-✅ Good:
+✅ Correct:
 ```
-The UserService handles user registration and authentication.
-- ProfileService: handles profile management
-- NotificationService: handles notifications
-- AnalyticsService: handles analytics
+UserService handles user registration and authentication.
+- ProfileService: Handles profile management
+- NotificationService: Handles notifications
+- AnalyticsService: Handles analytics
 ```
 
 ### Over-Engineering
 
-❌ Bad:
+❌ Incorrect:
 ```
-We'll implement a plugin system to allow future extensions
-for features we might need in 2-3 years.
+We will implement a plugin system to allow future expansion
+of features we may need in 2-3 years.
 ```
 
-✅ Good:
+✅ Correct:
 ```
-We'll implement the specific features requested.
-Extension points can be added when actual requirements emerge.
+We will implement the specifically requested features.
+Expansion points can be added when actual requirements arise.
 ```
 
 ---
 
 ## Review Output Format
 
-After reviewing, provide output in this format:
+After review, provide output in the following format:
 
 ```markdown
-## Spec Review
+## Specification Review
 
 **Status:** ✅ Approved | ❌ Issues Found
 
 **Issues Found (if any):**
-1. [Section name]: [specific issue]
-   - Why it matters: [explanation]
-   - Recommendation: [how to fix]
+1. [Section Name]: [Specific Issue]
+   - Why Important: [Explain]
+   - Suggestion: [How to Fix]
 
 **Strengths:**
-- [What was done well]
+- [What's done well]
 
-**Recommendations (advisory):**
-- [Suggestions that don't block approval]
+**Suggestions (For Reference Only):**
+- [Non-blocking suggestions]
 ```
 
 ---
 
-## Review Guidelines
+## Review Guidance
 
-1. **Be thorough but fair** - Focus on issues that would block implementation
-2. **Explain the why** - When flagging issues, explain why it matters
-3. **Be constructive** - Provide specific recommendations
-4. **Consider context** - The spec is for engineers who will create implementation plans
-5. **Value clarity** - Ambiguous specs lead to failed implementations
-6. **Enforce boundaries** - Unclear boundaries lead to tangled code
+1. **Thorough but Fair** - Focus on issues that would block implementation
+2. **Explain Why** - When marking issues, explain why they matter
+3. **Constructive** - Provide specific suggestions
+4. **Consider Context** - Specifications are for engineers who will create implementation plans
+5. **Value Clarity** - Vague specs lead to implementation failures
+6. **Enforce Boundaries** - Unclear boundaries lead to code entanglement
 
 ---
 
 ## Escalation
 
-If review loop exceeds 5 iterations for the same spec:
+If the same specification review loop exceeds 5 iterations:
 
 1. Summarize all issues found across iterations
-2. Document attempts made to resolve
-3. Identify specific areas of disagreement
-4. Submit to human for guidance with full context
+2. Document attempted solutions
+3. Identify specific points of disagreement
+4. Submit to human for guidance with complete context
 
 ---
 
-## Example Review
+## Review Example
 
-### Input Spec
+### Input Specification
 
 ```markdown
 # User Authentication Design
 
 ## Overview
-Add user authentication to the application.
+Add user authentication functionality to the application.
 
 ## Requirements
 - Users can log in
@@ -193,37 +193,37 @@ Add user authentication to the application.
 - Sessions are secure
 
 ## Architecture
-The AuthService will handle everything related to auth.
+AuthService will handle everything related to authentication.
 ```
 
 ### Review Output
 
 ```markdown
-## Spec Review
+## Specification Review
 
 **Status:** ❌ Issues Found
 
 **Issues Found:**
-1. **Overview**: Too vague - missing context about current system state
-   - Why it matters: Implementation approach depends on existing architecture
-   - Recommendation: Add section describing current authentication state (none? legacy system?)
+1. **Overview**: Too vague - Missing context of current system state
+   - Why Important: Implementation approach depends on existing architecture
+   - Suggestion: Add section describing current authentication state (none? legacy system?)
 
-2. **Requirements**: Missing critical details
-   - Why it matters: "Log in" could mean many things - password, SSO, OAuth?
-   - Recommendation: Specify authentication methods (password + email, OAuth providers, etc.)
+2. **Requirements**: Missing key details
+   - Why Important: "Login" could mean multiple methods - password, SSO, OAuth?
+   - Suggestion: Clarify authentication method (password+email, OAuth providers, etc.)
 
 3. **Requirements**: "Sessions are secure" is not testable
-   - Why it matters: Cannot verify if requirement is met
-   - Recommendation: Define specific security measures (HTTPS, token expiration, CSRF protection)
+   - Why Important: Cannot verify if requirement is met
+   - Suggestion: Define specific security measures (HTTPS, token expiration, CSRF protection)
 
-4. **Architecture**: AuthService has unclear boundaries
-   - Why it matters: "Everything related to auth" is too broad
-   - Recommendation: Split into focused services (TokenService, SessionService, PasswordService)
+4. **Architecture**: AuthService boundaries unclear
+   - Why Important: "Everything related to authentication" scope is too broad
+   - Suggestion: Split into focused services (TokenService, SessionService, PasswordService)
 
 **Strengths:**
-- Clear goal stated in overview
+- Goals clear in overview
 
-**Recommendations (advisory):**
+**Suggestions (For Reference Only):**
 - Consider adding error handling section
 - Consider adding testing strategy section
 ```

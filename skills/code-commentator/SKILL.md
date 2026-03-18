@@ -1,24 +1,24 @@
 ---
 name: code-commentator
-description: Expert in code annotation supplementation and standardization, automatically identifies code file types and adds professional bilingual comments for functions, classes, methods, properties, and other code elements. Use this skill when users mention "add comments", "supplement comments", "standardize comments", "code comments", "annotate code", "add comments", or need to add documentation comments to code.
+description: Code comment supplementation and standardization expert. Automatically identifies code file types and adds professional bilingual comments to functions, classes, methods, properties, and other code elements. Triggered when users mention "add comments", "supplement comments", "standardize comments", "code comments", "annotate code", "add comments", or need to add documentation comments to code.
 license: MIT
 metadata:
   version: "1.0.0"
 ---
 
-# Code Annotation Supplementation and Standardization Skill
+# Code Commentator Skill
 
-This skill provides systematic code annotation supplementation and standardization capabilities, automatically identifying code file types, applying corresponding annotation standards, and ensuring generated comments are accurate, complete, and meet bilingual requirements.
+This skill provides systematic code comment supplementation and standardization capabilities. It automatically identifies code file types, applies corresponding comment standards, and ensures generated comments are accurate, complete, and meet bilingual requirements.
 
 ## Trigger Conditions
 
-Activate this skill proactively when the following situations are detected:
+Activate this skill when detecting the following situations:
 
-- Users mention adding or supplementing comments: "add comments", "supplement comments", "increase comments"
-- Users mention standardizing comments: "standardize comments", "unify comment style", "comment standards"
-- Users mention code annotation needs: "add comments to code", "code lacks comments", "incomplete comments"
-- Users mention specific annotation types: "function comments", "class comments", "JSDoc", "docstring"
-- English trigger words: "add comments", "annotate code", "code documentation", "JSDoc"
+- User mentions adding or supplementing comments: "add comments", "supplement comments", "increase comments"
+- User mentions standardizing comments: "standardize comments", "unify comment style", "comment standards"
+- User mentions code comment needs: "add comments to code", "code lacks comments", "incomplete comments"
+- User mentions specific comment types: "function comments", "class comments", "JSDoc", "docstring"
+- English triggers: "add comments", "annotate code", "code documentation", "JSDoc"
 
 ---
 
@@ -26,36 +26,37 @@ Activate this skill proactively when the following situations are detected:
 
 ### Absolute Prohibitions
 
-**Strictly forbidden to modify any code content**. This skill can only add or modify comments, and must not:
+**Modifying any code content is strictly prohibited**. This skill can only add or modify comments, and must not:
+
 - Modify code logic
-- Modify identifiers such as variable names, function names, class names
-- Modify code structure (such as adding, deleting, rearranging code lines)
+- Modify variable names, function names, class names, or other identifiers
+- Modify code structure (such as adding, deleting, or rearranging code lines)
 - Modify code formatting (such as indentation, line breaks, spaces)
 
-The only allowed operation is adding comments to code or modifying existing comments.
+The only permitted operation is adding comments to code or modifying existing comments.
 
 ### Bilingual Comment Requirements
 
-All comments must contain both Chinese and English bilingual descriptions.
+All comments must simultaneously include both English and Chinese explanations.
 
 ---
 
 ## Phase 1: Project and File Analysis
 
-Before executing annotation supplementation, comprehensively analyze the project and target files.
+Before executing comment supplementation, comprehensively analyze the project and target files.
 
 ### 1.1 Identify Programming Language
 
-Identify the programming language based on file extension and select the corresponding comment style:
+Identify programming language based on file extension and select corresponding comment style:
 
 | Language | File Extensions | Multi-line Comment Style | Single-line Comment Style |
-|----------|-----------------|-------------------------|--------------------------|
+|----------|----------------|-------------------------|-------------------------|
 | JavaScript/TypeScript | `.js`, `.jsx`, `.ts`, `.tsx`, `.mjs`, `.cjs` | `/** ... */` | `// ...` |
 | Python | `.py` | `""" ... """` or `''' ... '''` | `# ...` |
 | Java | `.java` | `/** ... */` | `// ...` |
 | C/C++ | `.c`, `.cpp`, `.h`, `.hpp` | `/** ... */` | `// ...` |
 | Go | `.go` | `/** ... */` | `// ...` |
-| Rust | `.rs` | `/// ...` (doc comments) | `// ...` |
+| Rust | `.rs` | `/// ...` (documentation comment) | `// ...` |
 | PHP | `.php` | `/** ... */` | `// ...` |
 | Ruby | `.rb` | `=begin ... =end` | `# ...` |
 | Swift | `.swift` | `/** ... */` | `// ...` |
@@ -67,11 +68,12 @@ Identify the programming language based on file extension and select the corresp
 
 ### 1.2 Analyze Code Structure
 
-Parse code files to identify code elements that need comments.
+Parse code files and identify code elements that need comments.
 
-**Core Principle of Comments**: Comments are meant to enhance code readability, not to comment for the sake of commenting. Excessive comments can actually reduce code readability. If the code itself is simple and clear enough to self-explain its intent, no comments are needed.
+**Core Principles for Comments**: Comments are meant to enhance code readability, not to comment for the sake of commenting. Excessive comments can反而 harm readability. If the code itself is simple and clear enough to self-explain its intent, no comments are needed.
 
 **Elements that must have multi-line comments**:
+
 - Functions/methods
 - Classes/structs/interfaces
 - Public properties/fields
@@ -81,44 +83,46 @@ Parse code files to identify code elements that need comments.
 
 **Elements that need evaluation for single-line comments**:
 
-Only add comments when code logic is not intuitive enough or cannot self-explain:
+Only add comments when code logic is not intuitive and cannot self-explain:
 
-- **Complex conditional branch logic**: When condition evaluation involves multiple variables, complex operations, or business rules
-- **Complex loop structures**: When loop logic is not intuitive or has special boundary conditions
+- **Complex conditional logic**: When condition checking involves multiple variables, complex operations, or business rules
+- **Complex loop structures**: When loop logic is not intuitive or has special edge cases
 - **Complex expressions**: When expressions involve multi-step operations or special algorithms
 - **Important variable declarations**: When variable purpose is not obvious or involves special business meaning
 
-**Situations where comments are not needed**:
+**Cases where comments are not needed**:
 
-The following situations are clear enough in the code itself and do not need comments:
+The following cases are clear enough from the code itself, no comments needed:
 
-- Simple conditional checks (e.g., `if (isValid)`)
-- Simple loops (e.g., `for (const item of items)`)
-- Variable declarations where names clearly express purpose (e.g., `const userName = user.name`)
+- Simple conditional checks (such as `if (isvalid)`)
+- Simple loops (such as `for (const item of items)`)
+- Declarations where variable names clearly express purpose (such as `const userName = user.name`)
 - Standard getter/setter methods
 - Obvious assignment statements
 
 **Judgment Criteria**:
 
-Before adding a comment, ask yourself:
-1. Without looking at the comment, can you quickly understand the intent of this code?
+Before adding comments, ask yourself:
+
+1. Can I quickly understand this code's intent without reading comments?
 2. Is the code naming clear enough?
 3. Does the comment provide information that the code itself cannot express?
 
-If the answers to the above questions indicate the code is clear enough, no comment is needed.
+If the answers indicate the code is clear enough, no comments are needed.
 
 ### 1.3 Detect Existing Comments
 
 Analyze existing comments in the code:
+
 - Identify code elements that already have comments
-- Check if existing comments meet standards
+- Check if existing comments conform to standards
 - Mark comments that need supplementation or correction
 
 ---
 
 ## Phase 2: Comment Format Standards
 
-### 2.1 Multi-line Comment Formats
+### 2.1 Multi-line Comment Format
 
 #### JavaScript/TypeScript Format
 
@@ -199,7 +203,7 @@ public Result methodName(String paramName, Options options) {
 ```go
 // FunctionName English description of the function.
 //
-// 中文描述函数的功能。
+// 中文描述函数的功能.
 //
 // Parameters:
 //   - paramName: English description / 中文描述
@@ -224,7 +228,7 @@ func FunctionName(paramName string, options *Options) *Result {
 ```rust
 /// English description of the function.
 ///
-/// 中文描述函数的功能。
+/// 中文描述函数的功能.
 ///
 /// # Arguments
 ///
@@ -252,7 +256,7 @@ pub fn function_name(param_name: &str, options: Option<Options>) -> Result<Resul
 }
 ```
 
-### 2.2 Single-line Comment Formats
+### 2.2 Single-line Comment Format
 
 #### Short Description Format
 
@@ -299,15 +303,15 @@ for item in items:
 
 ### 3.1 Function/Method Comment Requirements
 
-Function/method comments must include the following:
+Function/method comments must include:
 
 1. **Function Description**: Clearly describe the function's purpose and usage
 2. **Parameter Description**: Type and purpose of each parameter
-3. **Return Description**: Type and meaning of the return value
+3. **Return Value Description**: Type and meaning of return value
 4. **Exception Description**: Possible exceptions and their conditions (if any)
 5. **Usage Examples**: At least one basic usage example
 
-#### Handling Union Type Parameters
+#### Handling Union Types in Parameters
 
 When parameter types are union types, use unordered lists to detail each type:
 
@@ -332,9 +336,9 @@ When parameter types are union types, use unordered lists to detail each type:
 function process(input: string | Buffer | ReadableStream): Result {}
 ```
 
-#### Functions Supporting Multiple Parameter Passing Methods
+#### Functions Supporting Multiple Parameter Styles
 
-For functions that support multiple parameter types or parameter counts, provide usage examples for different scenarios:
+For functions that support multiple parameter types or counts, provide usage examples for different scenarios:
 
 ```typescript
 /**
@@ -362,9 +366,9 @@ function createUser(nameOrOptions: string | UserOptions, age?: number): User {}
 
 ### 3.2 Class Comment Requirements
 
-Class comments must include the following:
+Class comments must include:
 
-1. **Function Description**: Purpose and responsibilities of the class
+1. **Function Description**: Class purpose and responsibilities
 2. **Property Description**: Description of important public properties
 3. **Usage Examples**: Examples of creating and using class instances
 
@@ -507,29 +511,29 @@ interface ApiClientOptions {
 
 ### 4.1 Tone Standards
 
-Use a professional yet friendly, conversational help tone:
+Use a professional, friendly, conversational help tone:
 
-- **Perspective and Tense**: Address the reader as "you". Use active voice and present tense (e.g., "the function returns...").
+- **Perspective and Tense**: Address the reader as "you". Use active voice and present tense (e.g., "The function returns...").
 - **Tone**: Professional, friendly, and direct.
-- **Clarity**: Use simple vocabulary. Avoid jargon, slang, and marketing language.
-- **Requirements**: Clearly distinguish requirements ("must") from recommendations ("we recommend"). Avoid using "should".
-- **Word Choice**: Avoid using "please" and personification (e.g., "the function thinks"). Use contractions (e.g., "don't", "it's").
+- **Clarity**: Use simple words. Avoid jargon, slang, and marketing language.
+- **Requirements**: Clearly distinguish requirements ("must") from suggestions ("we recommend"). Avoid "should".
+- **Word Choice**: Avoid "please" and personification (e.g., "the function thinks"). Use contractions (like "don't", "it's").
 
 ### 4.2 Language and Grammar Standards
 
 - **Abbreviations**: Avoid Latin abbreviations; use "for example" (not "e.g.") and "that is" (not "i.e.").
 - **Punctuation**: Use serial commas. Chinese content should use `""` instead of `""`.
-- **Dates**: Use clear formats (e.g., "January 22, 2026").
-- **Conciseness**: Use "lets you" instead of "allows you to". Choose precise, specific verbs.
+- **Dates**: Use explicit formats (e.g., "January 22, 2026").
+- **Conciseness**: Use "lets you" instead of "allows you". Choose precise, specific verbs.
 - **Examples**: Use meaningful names in examples; avoid meaningless placeholders like "foo" or "bar".
 
 ---
 
-## Phase 5: Comment Text Format Standards
+## Phase 5: Comment Text Formatting Standards
 
-### 5.1 Line Break Rules
+### 5.1 Line Wrapping Rules
 
-Comment text should break at approximately 100 characters (except for special content like long links or tables):
+Comment text should wrap at approximately 100 characters (except for special content like long links or tables):
 
 ```typescript
 /**
@@ -540,9 +544,9 @@ Comment text should break at approximately 100 characters (except for special co
  */
 ```
 
-### 5.2 Chinese-English Separation
+### 5.2 English/Chinese Separation
 
-In bilingual comments, English description comes first, Chinese description follows, separated by a blank line:
+In bilingual comments, English description comes first, Chinese description follows, separated by an empty line:
 
 ```typescript
 /**
@@ -554,7 +558,7 @@ In bilingual comments, English description comes first, Chinese description foll
 
 ### 5.3 Parameter Description Format
 
-Parameter descriptions use slashes to separate Chinese and English:
+Parameter descriptions use slashes to separate English and Chinese:
 
 ```typescript
 @param paramName - English description / 中文描述
@@ -562,31 +566,31 @@ Parameter descriptions use slashes to separate Chinese and English:
 
 ---
 
-## Phase 6: Execution Process
+## Phase 6: Execution Workflow
 
-### 6.1 File Scanning Process
+### 6.1 File Scanning Workflow
 
 1. Receive user-specified files or directories
 2. Recursively scan all code files
 3. Group by language type for processing
 4. Generate processing plan
 
-### 6.2 Single File Processing Process
+### 6.2 Single File Processing Workflow
 
 1. Read file content
 2. Parse code structure (AST or regex matching)
 3. Identify code elements that need comments
 4. Check completeness of existing comments
-5. Generate comments that meet standards
-6. Insert comments at correct positions
+5. Generate comments that conform to standards
+6. Insert comments into correct positions
 7. Write updated file
 
 ### 6.3 Comment Insertion Rules
 
-- **Function/Method Comments**: Immediately above the function declaration, no blank lines
-- **Class Comments**: Immediately above the class declaration, no blank lines
-- **Property Comments**: Immediately above the property declaration, no blank lines
-- **Single-line Comments**: Above the code line, with the same indentation as the code
+- **Function/method comments**: Immediately above function declaration, no blank line
+- **Class comments**: Immediately above class declaration, no blank line
+- **Property comments**: Immediately above property declaration, no blank line
+- **Single-line comments**: Above the code line, maintain same indentation
 
 ### 6.4 Progress Reporting
 
@@ -622,20 +626,20 @@ Report progress in real-time during processing:
 
 ### 7.2 Comment Content Check
 
-- [ ] Function description is clear and accurate
+- [ ] Function descriptions are clear and accurate
 - [ ] Parameter descriptions are complete
 - [ ] Return value descriptions are accurate
 - [ ] Usage examples are runnable
-- [ ] Union type parameters have detailed explanations
+- [ ] Union type parameters have detailed descriptions
 
 ### 7.3 Comment Format Check
 
-- [ ] Follows language-specific comment style
+- [ ] Conforms to language-specific comment style
 - [ ] Bilingual format is correct
-- [ ] Line break positions are reasonable
-- [ ] Punctuation is used correctly
+- [ ] Line wrapping position is reasonable
+- [ ] Punctuation usage is correct
 
-### 7.4 Code Integrity Check
+### 7.4 Code Completeness Check
 
 - [ ] No code logic modified
 - [ ] No identifiers modified
@@ -646,7 +650,7 @@ Report progress in real-time during processing:
 
 ## Workflow Examples
 
-### Example 1: Adding Comments to a Single File
+### Example 1: Add Comments to a Single File
 
 ```
 User: Add comments to src/utils/helper.ts
@@ -654,17 +658,17 @@ User: Add comments to src/utils/helper.ts
 Agent:
 1. Read file content
 2. Parse code structure, identify 5 functions
-3. Check existing comments (found 2 functions missing comments)
-4. Generate bilingual comments for functions missing comments
-5. Insert comments at correct positions
+3. Check existing comments (found 2 functions lacking comments)
+4. Generate bilingual comments for functions lacking comments
+5. Insert comments into correct positions
 6. Write updated file
-7. Report: added 3 function comments, modified 2 existing comments
+7. Report: Added 3 function comments, modified 2 existing comments
 ```
 
-### Example 2: Batch Adding Comments to a Directory
+### Example 2: Batch Add Comments to Directory
 
 ```
-User: Add comments to all TypeScript files under src/ directory
+User: Add comments to all TypeScript files in src/ directory
 
 Agent:
 1. Scan src/ directory, find 15 .ts files
@@ -677,17 +681,17 @@ Agent:
 5. Generate summary report after completion
 ```
 
-### Example 3: Standardizing Existing Comments
+### Example 3: Standardize Existing Comments
 
 ```
-User: Standardize comment style for files under src/api/ directory
+User: Standardize comment style for files in src/api/ directory
 
 Agent:
 1. Scan directory, find 8 code files
 2. Analyze existing comment styles
-3. Identify comments that don't meet standards
-4. Correct comment formats according to standards
-5. Ensure all comments are in bilingual format
+3. Identify comments not conforming to standards
+4. Correct comment format according to standards
+5. Ensure all comments are bilingual
 6. Report modifications
 ```
 
@@ -695,9 +699,9 @@ Agent:
 
 ## Notes
 
-1. **Only Add Comments**: Strictly forbidden to modify any code content, including logic, structure, formatting
-2. **Maintain Consistency**: Comment style must be consistent within the same file
+1. **Only Add Comments**: Strictly prohibit modifying any code content, including logic, structure, formatting
+2. **Maintain Consistency**: Comment style within the same file must be consistent
 3. **Accuracy First**: Comment content must accurately reflect code functionality
-4. **Avoid Over-commenting**: Comments are to enhance readability, not to comment for the sake of commenting. If the code itself is clear enough, no comment is needed
-5. **Concise and Clear**: Avoid redundant comments; comments should have practical value and provide information that the code itself cannot express
-6. **Runnable Examples**: All usage examples must be code that can actually run
+4. **Avoid Over-commenting**: Comments are meant to enhance readability, not to comment for the sake of commenting. If code is clear enough, no comments needed
+5. **Concise and Clear**: Avoid redundant comments; comments should have practical value, providing information that code itself cannot express
+6. **Examples Must Be Runnable**: All usage examples must be actual runnable code
