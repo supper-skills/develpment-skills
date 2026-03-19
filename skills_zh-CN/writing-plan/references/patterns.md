@@ -29,6 +29,7 @@
 
 ```markdown
 ### 新建文件
+
 - `src/models/<entity>.ts` - 数据模型定义
 - `src/repositories/<entity>Repository.ts` - 数据访问层
 - `src/services/<entity>Service.ts` - 业务逻辑层
@@ -54,6 +55,7 @@
 
 ```markdown
 ### 新建文件
+
 - `src/auth/jwtHandler.ts` - JWT 令牌处理
 - `src/auth/middleware.ts` - 认证中间件
 - `src/auth/refreshHandler.ts` - 令牌刷新
@@ -79,6 +81,7 @@
 
 ```markdown
 ### 新建文件
+
 - `src/clients/<service>Client.ts` - API 客户端
 - `src/adapters/<service>Adapter.ts` - 数据适配器
 - `src/services/<service>Service.ts` - 业务封装
@@ -104,6 +107,7 @@
 
 ```markdown
 ### 新建文件
+
 - `src/middleware/<name>.ts` - 中间件实现
 - `src/types/middleware.ts` - 类型定义
 - `tests/middleware/<name>.test.ts` - 测试文件

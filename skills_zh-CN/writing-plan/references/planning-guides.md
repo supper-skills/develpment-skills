@@ -20,12 +20,12 @@
 
 **需要识别的依赖类型：**
 
-| 依赖类型 | 说明 | 示例 |
-|---------|------|------|
-| 运行时依赖 | 应用运行所需的包 | `express`, `lodash`, `axios` |
-| 开发依赖 | 仅开发环境需要的包 | `typescript`, `jest`, `eslint` |
-| 对等依赖 | 需要使用者提供的包 | `react`, `vue` |
-| 可选依赖 | 非必需但增强功能的包 | 性能分析工具、调试工具 |
+| 依赖类型   | 说明                 | 示例                           |
+| ---------- | -------------------- | ------------------------------ |
+| 运行时依赖 | 应用运行所需的包     | `express`, `lodash`, `axios`   |
+| 开发依赖   | 仅开发环境需要的包   | `typescript`, `jest`, `eslint` |
+| 对等依赖   | 需要使用者提供的包   | `react`, `vue`                 |
+| 可选依赖   | 非必需但增强功能的包 | 性能分析工具、调试工具         |
 
 ### 依赖安装计划
 
@@ -35,17 +35,19 @@
 ### 前置任务：依赖安装
 
 **新增依赖：**
+
 - `package-name@version` - 用途说明
 - `another-package@^1.2.0` - 用途说明
 
 **安装命令：**
+
 - [ ] 安装运行时依赖
-  运行：`pnpm add package-name@version`
-  预期：依赖添加到 package.json 并安装成功
+      运行：`pnpm add package-name@version`
+      预期：依赖添加到 package.json 并安装成功
 
 - [ ] 安装开发依赖
-  运行：`pnpm add -D dev-package@version`
-  预期：依赖添加到 devDependencies 并安装成功
+      运行：`pnpm add -D dev-package@version`
+      预期：依赖添加到 devDependencies 并安装成功
 ```
 
 ### 版本管理策略
@@ -70,12 +72,12 @@
 
 ### 环境类型
 
-| 环境 | 用途 | 配置特点 |
-|------|------|----------|
-| 开发环境 | 本地开发调试 | 详细日志、热重载、模拟数据 |
-| 测试环境 | 自动化测试 | 隔离数据、确定性配置 |
-| 预发环境 | 上线前验证 | 接近生产配置、真实数据子集 |
-| 生产环境 | 正式运行 | 性能优化、安全加固、精简日志 |
+| 环境     | 用途         | 配置特点                     |
+| -------- | ------------ | ---------------------------- |
+| 开发环境 | 本地开发调试 | 详细日志、热重载、模拟数据   |
+| 测试环境 | 自动化测试   | 隔离数据、确定性配置         |
+| 预发环境 | 上线前验证   | 接近生产配置、真实数据子集   |
+| 生产环境 | 正式运行     | 性能优化、安全加固、精简日志 |
 
 ### 配置文件规划
 
@@ -85,12 +87,14 @@
 ### 环境配置文件
 
 **创建：**
+
 - `.env.example` - 环境变量模板（提交到版本控制）
 - `.env.development` - 开发环境配置（不提交）
 - `.env.test` - 测试环境配置（可选提交）
 - `.env.production` - 生产环境配置（不提交，通过 CI/CD 注入）
 
 **配置项：**
+
 - `DATABASE_URL` - 数据库连接地址
 - `API_KEY` - 第三方服务密钥
 - `LOG_LEVEL` - 日志级别
@@ -103,6 +107,7 @@
 ### 任务：环境配置
 
 **文件：**
+
 - 创建：`.env.example`
 - 创建：`src/config/index.ts`
 
@@ -121,13 +126,13 @@ LOG_LEVEL=debug
 // src/config/index.ts
 export const config = {
   database: {
-    url: process.env.DATABASE_URL || 'postgresql://localhost:5432/dev',
+    url: process.env.DATABASE_URL || "postgresql://localhost:5432/dev",
   },
   api: {
     key: process.env.API_KEY,
   },
   log: {
-    level: process.env.LOG_LEVEL || 'info',
+    level: process.env.LOG_LEVEL || "info",
   },
 };
 ```
@@ -149,13 +154,13 @@ export const config = {
 
 ### 回滚场景识别
 
-| 场景 | 触发条件 | 回滚策略 |
-|------|----------|----------|
+| 场景         | 触发条件           | 回滚策略                    |
+| ------------ | ------------------ | --------------------------- |
 | 依赖安装失败 | 版本冲突、网络问题 | 恢复 package.json/lock 文件 |
-| 测试持续失败 | 无法修复的测试错误 | 回退到上一个通过状态 |
-| 功能不兼容 | 与现有系统集成失败 | 撤销相关代码变更 |
-| 性能退化 | 性能指标不达标 | 回退性能相关变更 |
-| 安全问题 | 发现安全漏洞 | 立即回退并修复 |
+| 测试持续失败 | 无法修复的测试错误 | 回退到上一个通过状态        |
+| 功能不兼容   | 与现有系统集成失败 | 撤销相关代码变更            |
+| 性能退化     | 性能指标不达标     | 回退性能相关变更            |
+| 安全问题     | 发现安全漏洞       | 立即回退并修复              |
 
 ### 回滚计划模板
 
@@ -166,11 +171,11 @@ export const config = {
 
 ### 检查点
 
-| 检查点 | 完成任务 | 回滚命令 |
-|--------|---------|----------|
-| CP-1 | 依赖安装完成 | `git checkout package.json pnpm-lock.yaml && pnpm install` |
-| CP-2 | 认证模块完成 | `git checkout src/auth/ tests/auth/` |
-| CP-3 | API 集成完成 | `git checkout src/api/ tests/api/` |
+| 检查点 | 完成任务     | 回滚命令                                                   |
+| ------ | ------------ | ---------------------------------------------------------- |
+| CP-1   | 依赖安装完成 | `git checkout package.json pnpm-lock.yaml && pnpm install` |
+| CP-2   | 认证模块完成 | `git checkout src/auth/ tests/auth/`                       |
+| CP-3   | API 集成完成 | `git checkout src/api/ tests/api/`                         |
 
 ### 回滚步骤
 
@@ -185,10 +190,11 @@ export const config = {
    - 确认回滚范围
 
 3. **执行回滚**
+
    ```bash
    # 回滚到指定检查点
    git reset --hard <checkpoint-commit>
-   
+
    # 或选择性回滚文件
    git checkout <commit> -- path/to/files
    ```

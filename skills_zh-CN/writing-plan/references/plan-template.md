@@ -38,11 +38,11 @@
 
 > 记录计划编写过程中的关键决策及其理由，防止重复讨论已决策问题。
 
-| 决策 | 理由 | 影响范围 | 决策时间 |
-|------|------|---------|---------|
-| 使用 JWT 而非 Session | 无状态、易扩展 | 认证模块 | YYYY-MM-DD |
-| 选择 PostgreSQL | 团队熟悉、JSON 支持 | 数据层 | YYYY-MM-DD |
-| 采用微服务架构 | 独立部署、技术栈灵活 | 整体架构 | YYYY-MM-DD |
+| 决策                  | 理由                 | 影响范围 | 决策时间   |
+| --------------------- | -------------------- | -------- | ---------- |
+| 使用 JWT 而非 Session | 无状态、易扩展       | 认证模块 | YYYY-MM-DD |
+| 选择 PostgreSQL       | 团队熟悉、JSON 支持  | 数据层   | YYYY-MM-DD |
+| 采用微服务架构        | 独立部署、技术栈灵活 | 整体架构 | YYYY-MM-DD |
 
 ## 项目概述
 
@@ -79,17 +79,17 @@
 
 ## 共享组件（多子系统项目填写）
 
-| 组件 | 使用子系统 | 计划位置 |
-|------|-----------|---------|
-| [组件名] | A, B, C | 子系统 A 计划中定义 |
-| [组件名] | B, C | 子系统 B 计划中定义 |
+| 组件     | 使用子系统 | 计划位置            |
+| -------- | ---------- | ------------------- |
+| [组件名] | A, B, C    | 子系统 A 计划中定义 |
+| [组件名] | B, C       | 子系统 B 计划中定义 |
 
 ## 变更历史
 
 > 记录计划的变更历史，便于追溯和影响分析。
 
-| 变更时间 | 变更内容 | 影响范围 | 变更原因 |
-|---------|---------|---------|---------|
+| 变更时间   | 变更内容   | 影响范围 | 变更原因     |
+| ---------- | ---------- | -------- | ------------ |
 | YYYY-MM-DD | 增加缓存层 | 子系统 A | 性能优化需求 |
 
 ## 全局约束
@@ -107,7 +107,7 @@
 
 **路径**：`design/plans/YYYY-MM-DD-<feature-name>.md`
 
-```markdown
+````markdown
 # [功能名称] 实施计划
 
 > **对于代理工作者：** 必需：使用 executing-plans 来实施此计划。步骤使用复选框（`- [ ]`）语法进行跟踪。
@@ -123,14 +123,17 @@
 ## 文件结构
 
 ### 新建文件
+
 - `path/to/new/file.<ext>` - 职责描述
 - `path/to/another/file.<ext>` - 职责描述
 
 ### 修改文件
+
 - `path/to/existing/file.<ext>` - 将被修改的内容
 - `path/to/another/existing.<ext>` - 将被修改的内容
 
 ### 测试文件
+
 - `tests/path/to/test_file.<ext>` - 测试职责
 
 ---
@@ -140,6 +143,7 @@
 ### 任务 1：[组件名称]
 
 **文件：**
+
 - 创建：`exact/path/to/file.<ext>`
 - 修改：`exact/path/to/existing.<ext>#L123-145`
 - 测试：`tests/exact/path/to/test.<ext>`
@@ -156,6 +160,7 @@ describe('functionName', () => {
   });
 });
 ```
+````
 
 - [ ] **步骤 2：运行测试验证失败**
 
@@ -182,6 +187,7 @@ export function functionName(input: InputType): OutputType {
 ### 任务 2：[另一个组件]
 
 **文件：**
+
 - 创建：`exact/path/to/another.<ext>`
 - 测试：`tests/exact/path/to/test_another.<ext>`
 
@@ -214,7 +220,8 @@ export function functionName(input: InputType): OutputType {
 [继续按相同模式添加更多任务...]
 
 ---
-```
+
+````
 
 ---
 
@@ -267,7 +274,7 @@ export function functionName(input: InputType): OutputType {
 
 ```<language>
 // 根据您的语言调整
-```
+````
 
 - [ ] **步骤 2：运行测试验证失败**
 
@@ -288,7 +295,8 @@ export function functionName(input: InputType): OutputType {
 ---
 
 [继续添加更多任务和块...]
-```
+
+````
 
 ---
 
@@ -314,7 +322,7 @@ export function functionName(input: InputType): OutputType {
 - 创建：`tests/[entity].test.ts` - 测试文件
 
 [基于模式模板编写具体任务...]
-```
+````
 
 ### 模式 2：认证模块
 
@@ -328,6 +336,7 @@ export function functionName(input: InputType): OutputType {
 > 引用模式：认证模块
 
 **文件：**
+
 - 创建：`src/auth/jwtHandler.ts` - JWT 令牌处理
 - 创建：`src/auth/middleware.ts` - 认证中间件
 - 创建：`src/auth/refreshHandler.ts` - 令牌刷新
@@ -350,6 +359,7 @@ export function functionName(input: InputType): OutputType {
 > 服务：[ServiceName]
 
 **文件：**
+
 - 创建：`src/clients/[service]Client.ts` - API 客户端
 - 创建：`src/adapters/[service]Adapter.ts` - 数据适配器
 - 创建：`src/services/[service]Service.ts` - 业务封装
@@ -366,10 +376,10 @@ export function functionName(input: InputType): OutputType {
 ### TypeScript/JavaScript (Jest)
 
 ```typescript
-describe('UserService', () => {
-  it('should create a new user', () => {
-    const user = UserService.create({ name: 'John' });
-    expect(user.name).toBe('John');
+describe("UserService", () => {
+  it("should create a new user", () => {
+    const user = UserService.create({ name: "John" });
+    expect(user.name).toBe("John");
   });
 });
 ```
@@ -417,11 +427,11 @@ func TestCreateUser(t *testing.T) {
 
 ### 分块粒度标准
 
-| 指标 | 标准 | 原因 |
-|------|------|------|
-| 行数 | 300-500 行 | 适配 AI 上下文窗口 |
-| 任务数 | 5-10 个 | 保持逻辑完整性 |
-| 依赖 | 块内自洽 | 减少跨块引用 |
+| 指标   | 标准       | 原因               |
+| ------ | ---------- | ------------------ |
+| 行数   | 300-500 行 | 适配 AI 上下文窗口 |
+| 任务数 | 5-10 个    | 保持逻辑完整性     |
+| 依赖   | 块内自洽   | 减少跨块引用       |
 
 ### 分块边界识别
 
@@ -451,22 +461,26 @@ func TestCreateUser(t *testing.T) {
 **变更类型**：新增功能 / 修改需求 / 删除功能 / 技术调整 / 优先级调整
 
 **直接影响的任务**：
+
 - 任务 X：[如何影响]
 - 任务 Y：[如何影响]
 
 **间接影响的任务**：
+
 - 任务 Z：[如何影响]
 
 **影响的子系统**：
+
 - 子系统 A：[如何影响]
 
 **需要更新的文档**：
+
 - [ ] 计划文档 A
 - [ ] 纲领文件
 
 **新增决策**（如有）：
 | 决策 | 理由 | 影响范围 | 决策时间 |
-|------|------|---------|---------|
+| ---------- | -------- | -------- | ---------- |
 | [决策内容] | [为什么] | [影响] | YYYY-MM-DD |
 ```
 
