@@ -1,82 +1,82 @@
-# Agent Skills
+# Development Skills
 
 简体中文 | [English](./README.md)
 
-为 AI 编程助手提供可复用技能指令集，扩展其专业能力。
+**将你的想法变为可落地的项目。** 一句话需求，即刻开始构建。
 
-## 概述
+## 这个技能包能做什么
 
-Skills 是一套精心设计的服务于 AI 编程助手的技能包。每个技能都定义在 `SKILL.md` 文件中，包含完整的指令集、工作流程和质量标准，帮助 AI 助手更高效地完成特定任务。
-
-## 功能特性
-
-### 开发工作流技能
-
-**brainstorming**、**writing-plan** 和 **executing-plans** 是相互关联的技能，按顺序触发，形成从需求到实现的完整开发工作流：
+Development Skills 通过结构化、质量保证的工作流程，将你的想法转化为完整实现的项目。只需描述你想构建什么，AI 助手就会引导你从概念到完成。
 
 ```
-brainstorming → writing-plan → executing-plans
+你的想法 → 设计规格说明 → 实施计划 → 可运行代码
 ```
 
-**目标**：通过结构化、质量保证的流程，将用户想法转化为生产就绪的代码：
-1. **探索与设计** - 理解需求并创建设计规格说明
-2. **规划与文档** - 分解为细粒度、可测试的实施步骤
-3. **执行与验证** - 严格执行并验证
+## 核心工作流
 
-#### brainstorming
+技能包提供三个相互关联的技能，无缝协作：
 
-任何创造性工作前的必经步骤。该技能提供：
+### 1. brainstorming
 
-- **需求探索**：通过协作对话理解用户意图、需求和设计方案
-- **设计规格**：将创意转化为完整的设计规格说明
-- **质量保证**：包含规格审阅循环和自动验证
-- **工作流指导**：从背景探索到实施规划的逐步流程
-- **项目初始化**：项目结构、基础设施决策和关键问题指导
-- **技术选型**：系统性的技术选择评估框架
-- **风险评估**：在设计阶段识别和评估潜在风险
+**当你说**："我想创建一个 TODO List 应用"
 
-**参考文档**：faq.md、project-initialization-guide.md、risk-assessment-template.md、spec-document-reviewer-prompt.md、spec-template.md、state-template.md、tech-selection-guide.md
+AI 助手将：
+- 与你协作探索需求和目标
+- 提出多个方案并进行权衡分析
+- 创建完整的设计规格说明文档
+- 确保在编写任何代码前达成共识
 
-#### writing-plan
+### 2. writing-plan
 
-多步骤任务的实施计划创建技能，提供以下能力：
+**设计通过后**，AI 助手将：
+- 将规格说明分解为细粒度的实施步骤
+- 定义精确的文件结构和职责
+- 创建测试驱动的开发任务
+- 准备全面的实施计划
 
-- **上下文分析**：评估范围并识别独立子系统
-- **文件结构规划**：设计清晰的边界和明确定义的接口
-- **任务定义**：采用 TDD 方法的细粒度步骤
-- **依赖管理**：识别并规划依赖安装
-- **环境配置**：定义不同环境的策略
-- **回滚策略**：为实施失败准备计划
-- **审阅循环**：迭代审阅和质量检查点
+### 3. executing-plans
 
-**参考文档**：plan-document-reviewer-prompt.md、plan-template.md、patterns.md、planning-guides.md、change-management.md、quality-checklist.md、workflow-examples.md
+**计划确认后**，AI 助手将：
+- 严格按照文档记录执行每个步骤
+- 在检查点运行所有验证和测试
+- 追踪进度并处理阻碍
+- 生成完成报告
 
-#### executing-plans
+## 示例
 
-包含审查检查点的实施计划执行技能，提供以下能力：
+```txt
+用户：我想创建一个支持 markdown 的博客平台
 
-- **计划加载**：定位并加载书面实施计划
-- **批判性审阅**：在执行前评估计划质量
-- **严格执行**：完全按照文档记录执行每个步骤
-- **验证检查**：在检查点运行所有指定的验证
-- **阻碍处理**：遇到障碍时停止并寻求帮助
-- **进度持久化**：使用任务标记追踪进度，支持中断后恢复
-- **恢复机制**：从中断点恢复执行并验证
+AI：[激活 brainstorming 技能]
+    让我更好地理解您的需求...
+    这个平台的主要用户是谁？
+    [协作对话继续...]
 
-**参考文档**：completion-report-template.md、execution-state-template.md、workflow-examples.md
+    [创建设计规格说明]
+    [激活 writing-plan 技能]
+    [创建实施计划]
+    [激活 executing-plans 技能]
+    [实施功能]
 
----
+    ✅ 您的博客平台已就绪！
+```
 
-### 独立技能
+## 附加技能
 
-#### code-commentator
+### code-commentator
 
-代码注释补充与规范化专家，提供以下能力：
+代码注释补充与规范化专家：
+- 自动识别多种编程语言
+- 双语注释（中英文）
+- 规范化格式（JSDoc、docstring 等）
+- 为函数、类、属性添加完整注释
 
-- **自动识别语言**：支持 JavaScript、TypeScript、Python、Java、Go、Rust 等多种编程语言
-- **双语注释**：所有注释同时包含中英文说明
-- **规范格式**：自动应用语言特定的注释风格（JSDoc、docstring 等）
-- **完整性保证**：为函数、类、属性、枚举等代码元素添加完整注释
+### project-context
+
+跨会话管理用户画像和项目上下文：
+- 记住你的偏好和技术背景
+- 追踪项目状态和已完成功能
+- 为未来规划提供上下文
 
 ## 安装
 
@@ -84,26 +84,35 @@ brainstorming → writing-plan → executing-plans
 
 ```bash
 # 安装所有技能
-npx skills add https://github.com/supper-skills/skills
+npx skills add https://github.com/supper-skills/development-skills
 
 # 安装特定技能
-npx skills add https://github.com/supper-skills/skills --skill doc-writer
+npx skills add https://github.com/supper-skills/development-skills --skill brainstorming
 
 # 安装到全局目录
-npx skills add https://github.com/supper-skills/skills -g
+npx skills add https://github.com/supper-skills/development-skills -g
 ```
 
 ## 使用方法
 
-### 安装后自动激活
-
-技能安装后，当您向 AI 助手发出相关指令时会自动激活：
+安装后，当你描述想要构建的内容时，技能会自动激活：
 
 ```txt
-用户：我想实现一个 TODO List 应用
+用户：我想为我的应用添加用户认证功能
+用户：创建一个仪表盘组件
+用户：构建产品管理的 REST API
 ```
 
-此时 `brainstorming` 技能会自动激活，AI 助手将按照技能中定义的标准和流程，与您合作探索和设计 TODO List 应用的需求规格。
+AI 助手将自动调用适当的技能并引导你完成整个过程。
+
+## 为什么选择 Development Skills
+
+| 传统方式 | Development Skills |
+|---------|-------------------|
+| 需求模糊 → 返工 | 规格清晰 → 一次做对 |
+| 随意实施 → Bug | 计划执行 → 质量保证 |
+| 上下文丢失 → 不一致 | 持久上下文 → 结果一致 |
+| 手动追踪 → 遗漏步骤 | 自动追踪 → 完整覆盖 |
 
 ## 许可证
 

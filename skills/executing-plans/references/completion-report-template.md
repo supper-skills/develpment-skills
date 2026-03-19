@@ -4,7 +4,7 @@ This document provides the report template after execution completion.
 
 ---
 
-## Completion Report Template
+## Report Template
 
 ```markdown
 ## Implementation Complete
@@ -14,7 +14,7 @@ This document provides the report template after execution completion.
 
 ### Summary
 
-- [Brief description of what was built]
+[Brief description of what was built]
 
 ### Changed Files
 
@@ -30,10 +30,32 @@ This document provides the report template after execution completion.
 ### Execution Statistics
 
 - Total tasks: [Count]
-- Total time: [Duration]
 - Issues encountered: [Count]
 
 ### Notes
 
-- [Any observations or suggestions]
+[Any observations or suggestions]
+```
+
+---
+
+## Multi-Subsystem Report
+
+```markdown
+## Multi-Subsystem Implementation Complete
+
+**Outline**: [Outline file path]
+**Status**: ✅ All subsystems completed
+
+### Subsystem Summary
+
+| Subsystem | Status | Plan Document |
+|-----------|--------|---------------|
+| Subsystem A | ✅ Complete | plans/subsystem-a.md |
+| Subsystem B | ✅ Complete | plans/subsystem-b.md |
+
+### Overall Verification
+
+- Integration tests: ✅ Passed
+- End-to-end tests: ✅ Passed
 ```
