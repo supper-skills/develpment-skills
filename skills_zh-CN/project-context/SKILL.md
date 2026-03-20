@@ -92,7 +92,7 @@ metadata:
 
 | 类型 | 偏好 | 备注 |
 |------|------|------|
-| 彽端端框架 | [React/Vue/Angular/其他] | - |
+| 前端端框架 | [React/Vue/Angular/其他] | - |
 | 后端语言 | [Node.js/Python/Go/Rust/其他] | - |
 | 代码风格 | [具体规范或风格描述] | - |
 
