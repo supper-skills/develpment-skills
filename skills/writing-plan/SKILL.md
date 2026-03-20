@@ -1,6 +1,6 @@
 ---
 name: writing-plan
-description: Implementation plan creation skill for multi-step tasks. Use this skill when you have a specification or requirements, before directly touching any code. Creates a comprehensive implementation plan. Triggered when users mention "create plan", "implementation plan", "write plan", "planning", "task breakdown", or start complex multi-step development work with existing specifications.
+description: Implementation plan creation skill for multi-step tasks. Use when there are specifications or requirements, before directly touching code. Create detailed, executable implementation plans. Activate when user mentions "create plan", "implementation plan", "write plan", "plan", "task breakdown", or starts complex multi-step development work with existing specifications.
 license: MIT
 metadata:
   version: "3.0.1"
@@ -8,7 +8,7 @@ metadata:
 
 # Writing Plan Skill
 
-This skill is used for creating comprehensive implementation plans for multi-step development tasks. Use when you have a specification or requirements, before directly touching any code.
+This skill is used to create comprehensive implementation plans for multi-step development tasks. Use when there are specifications or requirements, before directly touching any code.
 
 ---
 
@@ -16,29 +16,30 @@ This skill is used for creating comprehensive implementation plans for multi-ste
 
 ### Plan First
 
-Before plan completion, **must not**:
+Before the plan is completed, do NOT:
 
-- Invoke any implementation skill
+- Invoke any implementation skills
 - Write any code
 - Create or modify project files (except plan documents)
-- Take any implementation action
+- Take any implementation actions
 
 ### Session State Management
 
 Use a unified session state file to track progress:
 
 - **Path**: `design/.session-state.md`
-- **Template**: `references/session-state-template.md` (shared)
+- **Template**: `references/plan-template.md` (shared)
 
-**Operation Timing**:
+**When to Operate**:
 
-- When skill activates → Create/update state file
-- After completing phase milestones → Update state file
-- At the start of each conversation round → Read state file to restore context
+- Skill activation → **Create/update state file**
+- After completing phase milestones → **Update state file**
+- At the start of each dialogue round → Read state file to restore context
+- **After each phase completion → Update state file**
 
 ### Termination Condition
 
-The **only way to terminate** this skill is by completing the plan document and notifying the user that it's ready for execution.
+The only way to terminate this skill is to complete the plan document and notify user that execution is ready.
 
 ---
 
@@ -46,26 +47,27 @@ The **only way to terminate** this skill is by completing the plan document and 
 
 ### Phase 1: Context and Scope Analysis
 
-**Objective**: Understand specification document, identify subsystems.
+**Goal**: Understand specification document, identify subsystems.
 
 **Actions**:
 
-1. Receive specification document path from brainstorming
+1. Receive specification document path passed from brainstorming
 2. Read specification document, understand requirements
-3. Evaluate if requirements involve multiple independent subsystems
+3. Assess if multiple independent subsystems are involved
 
 **Subsystem Identification Criteria**:
 
 | Characteristic | Description |
-|---------------|-------------|
-| Independent data model | Subsystem has independent data structure |
-| Independent interface | Subsystem provides independent API externally |
-| Independent deployment | Subsystem can be deployed and run independently |
-| Clear boundaries | Subsystems communicate through explicit interfaces |
+| ------------ | ------------------------ |
+| Independent Data Model | Subsystem has its own data structure |
+| Independent Interface | Subsystem provides independent API externally |
+| Independent Deployment | Subsystem can be deployed and run independently |
+| Clear Boundaries | Subsystems communicate through explicit interfaces |
 
 **Handling Strategy**:
+
 - Single subsystem → Proceed directly to Phase 2
-- Multiple subsystems → First create outline file, then write plan for each subsystem
+- Multiple subsystems → Create outline file first, then write plans for each subsystem
 
 **Completion Criteria**: Requirements understood, subsystem division identified
 
@@ -73,12 +75,13 @@ The **only way to terminate** this skill is by completing the plan document and 
 
 ### Phase 2: File Structure Planning
 
-**Objective**: Plan which files will be created or modified and their responsibilities.
+**Goal**: Plan files to be created or modified and their responsibilities.
 
 **Design Principles**:
+
 - Single Responsibility: Each file should have a single clear responsibility
-- Context Friendly: Code that can be understood in one context window
-- Focused Files: Prefer small, focused files
+- Context-friendly: Code understandable within one context window
+- Focused files: Prefer small, focused files
 
 **Output Format**:
 
@@ -86,24 +89,47 @@ The **only way to terminate** this skill is by completing the plan document and 
 ## File Structure
 
 ### New Files
+
 - `path/to/new/file.ts` - Responsibility description
 
-### Modify Files
+### Modified Files
+
 - `path/to/existing/file.ts` - Modification content description
 
 ### Test Files
-- `tests/path/to/test.ts` - Test responsibility
+
+- `tests/path/to/test.ts` - Test responsibilities
 ```
 
-**Completion Criteria**: File structure planned, user confirmed
+**Code Comment Planning**:
+
+**Explicitly note comment requirements in file structure planning**:
+
+For each new or modified file, annotate comment requirements:
+
+```markdown
+### New Files
+
+- `src/utils/helper.ts` - Responsibility description
+  - Comment requirements: Need documentation comments for all public functions
+  - Complexity: Medium (contains complex algorithms, needs detailed comments)
+```
+
+**Comment Requirements Evaluation Criteria**:
+
+- **High Priority**: Public APIs, core business logic, complex algorithms
+- **Medium Priority**: Utility functions, data processing logic
+- **Low Priority**: Simple utility functions, configuration files
+
+**Completion Criteria**: File structure planned, test files identified, comment requirements evaluated, user confirmed
 
 ---
 
 ### Phase 3: Task Definition
 
-**Objective**: Define specific implementation tasks.
+**Goal**: Define specific implementation tasks.
 
-**Task Granularity**: Each step should correspond to one operation (takes 2-5 minutes).
+**Task Granularity**: Each step should correspond to one operation (taking 2-5 minutes).
 
 **Task Structure**:
 
@@ -111,61 +137,79 @@ The **only way to terminate** this skill is by completing the plan document and 
 ### Task N: [Task Name]
 
 **Files**:
+
 - Create: `path/to/file.ts`
 - Test: `tests/path/to/test.ts`
 
 - [ ] **Step 1**: Write failing test
 - [ ] **Step 2**: Run test to verify failure
 - [ ] **Step 3**: Write minimal implementation
-- [ ] **Step 4**: Run test to verify pass
+- [ ] **Step 4**: Run test to verify passing
 ```
 
 **Task Requirements**:
-- Precise file paths, no ambiguous references
-- Complete code in plan, not placeholders
-- Precise commands and expected output
-- Test-first approach (TDD)
 
-**Completion Criteria**: All tasks defined, user confirmed
+- Precise file paths, no vague references
+- Complete code in plan, no placeholders
+- Precise commands and expected output
+- **Test-Driven Development (TDD)**: Each task must define test file and test cases first
+
+**Test Requirements**:
+
+⚠️ **Tasks must include test steps**, the following are prohibited:
+
+- ❌ Only write implementation code, no tests
+- ❌ Test file path is empty or uses placeholders
+- ❌ Test cases are incomplete or too simple
+- ❌ Skip "Write failing test" step
+
+**Test Coverage Standards**:
+
+- Each function/method has at least one positive test case
+- Edge conditions have corresponding tests
+- Error handling paths have test coverage
+- Test files must be created before task starts
+
+**Completion Criteria**: All tasks defined, each task includes complete test plan, user confirmed
 
 ---
 
 ### Phase 4: Plan Save and Confirmation
 
-**Objective**: Save plan document, get user approval.
+**Goal**: Save plan document, obtain user approval.
 
 **Actions**:
 
 1. Save plan to `design/plans/YYYY-MM-DD-<feature>.md`
-2. Ask user to confirm plan content
-3. If user approves, ask whether to start execution
+2. Request user to confirm plan content
+3. If user approves, ask if execution should begin
 
-**Standard Script**:
+**Standard Phrase**:
 
-> "Plan complete and saved. Please confirm the following:
+> "The plan is complete and saved. Please confirm the following:
 >
 > **Plan Document**: `design/plans/<filename>.md`
-> **Total Tasks**: [Count]
+> **Total Tasks**: [count]
 >
-> Confirm to start execution?"
+> Should I begin execution after confirmation?"
 
 ---
 
 ### Phase 5: Execution Handover
 
-**Objective**: Invoke executing-plans skill.
+**Goal**: Invoke executing-plans skill.
 
 **Invocation Format**:
 
 ```
-Invoke executing-plans skill with plan document path: <path>
+Invoke executing-plans skill, plan document path: <path>
 ```
 
-**Termination**: Upon completion of this phase, this skill ends.
+**Termination**: After this phase completes, this skill ends.
 
 ---
 
-## Multi-Subsystem Processing
+## Multi-Subsystem Handling
 
 When multiple subsystems are identified:
 
@@ -180,10 +224,10 @@ When multiple subsystems are identified:
 
 ## Subsystem Division
 
-| Subsystem | Scope | Dependencies | Status |
-|-----------|-------|--------------|--------|
-| SubsystemA | [Scope] | None | Pending |
-| SubsystemB | [Scope] | A | Pending |
+| Subsystem | Scope | Dependency | Status |
+| ------- | ------ | ---- | ------ |
+| SubsystemA | [scope] | None | To be written |
+| SubsystemB | [scope] | A | To be written |
 
 ## Execution Order
 
@@ -193,36 +237,38 @@ When multiple subsystems are identified:
 ## Shared Components
 
 | Component | Using Subsystems | Definition Location |
-|-----------|-----------------|---------------------|
-| [Component Name] | A, B | In SubsystemA plan |
+| -------- | ---------- | ------------- |
+| [Component name] | A, B | In SubsystemA plan |
 ```
 
-### 2. Write Plan for Each Subsystem
+### 2. Write Plans for Each Subsystem
 
-Each subsystem independently writes plan document, after completion update outline file status.
+Each subsystem independently writes plan documents, update outline file status after completion.
 
 ---
 
-## Reference Guides
+## Reference Guide
 
 | Reference Document | Purpose |
-|-------------------|---------|
+| ----------------------------- | ------------ |
 | `references/plan-template.md` | Plan template |
-| `references/patterns.md` | Common plan patterns |
+| `references/patterns.md`      | Common plan patterns |
 
 ---
 
-## Common Issues
+## FAQ
 
-### Plan Needs Modification?
+### Plan needs modification?
 
 Handling:
+
 1. Record changes in outline file
 2. Update affected plan documents
-3. Notify user of change impact scope
+3. Notify user of change scope
 
-### How to Resume After Conversation Interruption?
+### How to recover after dialogue interruption?
 
 Handling:
+
 1. Read session state file `design/.session-state.md`
 2. Continue execution based on "Next Step"

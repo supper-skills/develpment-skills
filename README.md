@@ -21,6 +21,7 @@ The skill pack provides three interconnected skills that work together seamlessl
 **When you say**: "I want to create a TODO List app"
 
 The AI assistant will:
+
 - Collaborate with you to explore requirements and goals
 - Propose multiple solution approaches with trade-off analysis
 - Create a complete design specification document
@@ -29,6 +30,7 @@ The AI assistant will:
 ### 2. writing-plan
 
 **After design approval**, the AI assistant will:
+
 - Break down the specification into granular implementation steps
 - Define precise file structures and responsibilities
 - Create test-driven development tasks
@@ -37,6 +39,7 @@ The AI assistant will:
 ### 3. executing-plans
 
 **After plan approval**, the AI assistant will:
+
 - Execute each step exactly as documented
 - Run all validations and tests at checkpoints
 - Track progress and handle blockers
@@ -66,6 +69,7 @@ AI: [Activates brainstorming skill]
 ### code-commentator
 
 Code annotation supplementation and standardization expert:
+
 - Automatic language detection for multiple programming languages
 - Bilingual comments (Chinese and English)
 - Standardized format (JSDoc, docstring, etc.)
@@ -74,6 +78,7 @@ Code annotation supplementation and standardization expert:
 ### project-context
 
 Manages user profiles and project context across sessions:
+
 - Remembers your preferences and technical background
 - Tracks project status and completed features
 - Provides context for future planning
@@ -107,12 +112,12 @@ The AI assistant will automatically invoke the appropriate skill and guide you t
 
 ## Why Development Skills?
 
-| Traditional Approach | Development Skills |
-|---------------------|-------------------|
-| Vague requirements → Rework | Clear specification → First-time right |
-| Ad-hoc implementation → Bugs | Planned execution → Quality assured |
-| Lost context → Inconsistency | Persistent context → Consistent results |
-| Manual tracking → Missed steps | Automatic tracking → Complete coverage |
+| Traditional Approach           | Development Skills                      |
+| ------------------------------ | --------------------------------------- |
+| Vague requirements → Rework    | Clear specification → First-time right  |
+| Ad-hoc implementation → Bugs   | Planned execution → Quality assured     |
+| Lost context → Inconsistency   | Persistent context → Consistent results |
+| Manual tracking → Missed steps | Automatic tracking → Complete coverage  |
 
 ## License
 

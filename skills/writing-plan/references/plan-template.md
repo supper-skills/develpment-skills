@@ -17,7 +17,7 @@ design/plans/YYYY-MM-DD-<feature>.md
 ```markdown
 # [Feature Name] Implementation Plan
 
-**Goal**: [One sentence describing what this feature builds]
+**Goal**: [One-sentence description of what this feature builds]
 
 **Architecture**: [2-3 sentences about the approach]
 
@@ -30,11 +30,11 @@ design/plans/YYYY-MM-DD-<feature>.md
 ### New Files
 - `path/to/new/file.ts` - Responsibility description
 
-### Modify Files
+### Modified Files
 - `path/to/existing/file.ts` - Modification content description
 
 ### Test Files
-- `tests/path/to/test.ts` - Test responsibility
+- `tests/path/to/test.ts` - Test responsibilities
 
 ---
 
@@ -49,11 +49,11 @@ design/plans/YYYY-MM-DD-<feature>.md
 - [ ] **Step 1**: Write failing test
 - [ ] **Step 2**: Run test to verify failure
 - [ ] **Step 3**: Write minimal implementation
-- [ ] **Step 4**: Run test to verify pass
+- [ ] **Step 4**: Run test to verify passing
 
 ### Task 2: [Task Name]
 
-[Continue with the same pattern...]
+[Continue with same pattern...]
 ```
 
 ---
@@ -65,43 +65,43 @@ design/plans/YYYY-MM-DD-<feature>.md
 
 ## Subsystem Division
 
-| Subsystem | Scope | Dependencies | Status |
-|-----------|-------|--------------|--------|
-| Subsystem A | [Scope] | None | Pending |
-| Subsystem B | [Scope] | A | Pending |
+| Subsystem | Scope | Dependency | Status |
+|--------|------|------|------|
+| SubsystemA | [scope] | None | To be written |
+| SubsystemB | [scope] | A | To be written |
 
 ## Execution Order
 
-1. Subsystem A (no dependencies)
-2. Subsystem B (depends on A)
+1. SubsystemA (no dependencies)
+2. SubsystemB (depends on A)
 
 ## Shared Components
 
 | Component | Using Subsystems | Definition Location |
-|-----------|------------------|---------------------|
-| [Component Name] | A, B | In Subsystem A plan |
+|------|------------|----------|
+| [Component name] | A, B | In SubsystemA plan |
 ```
 
 ---
 
-## Chunking Guide
+## Chunking Guidelines
 
 | Metric | Standard | Reason |
-|--------|----------|--------|
-| Lines | 300-500 lines | Fit context window |
-| Tasks | 5-10 tasks | Maintain logical integrity |
+|------|------|------|
+| Line Count | 300-500 lines | Fits context window |
+| Task Count | 5-10 tasks | Maintains logical integrity |
 
 **Chunk Boundaries**:
-- Chunk by functional module
-- Chunk by implementation phase (infrastructure, core features, integration testing)
+- Chunk by feature module
+- Chunk by implementation phase (infrastructure, core features, integration tests)
 - Chunk by subsystem
 
 ---
 
 ## Task Requirements
 
-- Precise file paths, no ambiguous references
-- Complete code in plan, not placeholders
+- Precise file paths, no vague references
+- Complete code in plan, no placeholders
 - Precise commands and expected output
-- Test-first approach (TDD)
-- Each step should be completable in 2-5 minutes
+- Test-driven development (TDD)
+- Each step completable in 2-5 minutes

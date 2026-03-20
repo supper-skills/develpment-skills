@@ -1,28 +1,28 @@
 # Comment Format Reference Guide
 
-This document provides detailed examples of comment formats for various programming languages for reference when adding comments.
+This document provides detailed comment format examples for various programming languages, for reference when adding comments.
 
 ## Table of Contents
 
-- [Programming Language Recognition](#programming-language-recognition)
+- [Programming Language Identification](#programming-language-identification)
 - [Multi-line Comment Formats](#multi-line-comment-formats)
 - [Single-line Comment Formats](#single-line-comment-formats)
-- [Comment Text Format](#comment-text-format)
+- [Comment Text Formatting](#comment-text-formatting)
 
 ---
 
-## Programming Language Recognition
+## Programming Language Identification
 
-Identify programming language based on file extension and select corresponding comment style:
+Identify programming language based on file extension, choose corresponding comment style:
 
 | Language | File Extensions | Multi-line Comment Style | Single-line Comment Style |
-|----------|----------------|-------------------------|-------------------------|
+| --------------------- | -------------------------------------------- | ------------------------------ | ------------ |
 | JavaScript/TypeScript | `.js`, `.jsx`, `.ts`, `.tsx`, `.mjs`, `.cjs` | `/** ... */` | `// ...` |
 | Python | `.py` | `""" ... """` or `''' ... '''` | `# ...` |
 | Java | `.java` | `/** ... */` | `// ...` |
 | C/C++ | `.c`, `.cpp`, `.h`, `.hpp` | `/** ... */` | `// ...` |
 | Go | `.go` | `/** ... */` | `// ...` |
-| Rust | `.rs` | `/// ...` (documentation comment) | `// ...` |
+| Rust | `.rs` | `/// ...` (doc comments) | `// ...` |
 | PHP | `.php` | `/** ... */` | `// ...` |
 | Ruby | `.rb` | `=begin ... =end` | `# ...` |
 | Swift | `.swift` | `/** ... */` | `// ...` |
@@ -115,7 +115,7 @@ public Result methodName(String paramName, Options options) {
 ```go
 // FunctionName English description of the function.
 //
-// 中文描述函数的功能。
+// 中文描述函数的功能.
 //
 // Parameters:
 //   - paramName: English description / 中文描述
@@ -125,11 +125,11 @@ public Result methodName(String paramName, Options options) {
 //
 // Example:
 //
-//	// Basic usage
-//	result := FunctionName("value")
+// // Basic usage
+// result := FunctionName("value")
 //
-//	// With optional parameter
-//	result := FunctionName("value", options)
+// // With optional parameter
+// result := FunctionName("value", options)
 func FunctionName(paramName string, options *Options) *Result {
     // implementation
 }
@@ -320,7 +320,7 @@ for item in items:
 
 ### Union Type Parameter Handling
 
-When parameter types are union types, use unordered lists to detail each type:
+When a parameter type is a union type, use unordered lists to describe each type in detail:
 
 ```typescript
 /**
@@ -343,7 +343,7 @@ When parameter types are union types, use unordered lists to detail each type:
 function process(input: string | Buffer | ReadableStream): Result {}
 ```
 
-### Functions Supporting Multiple Parameter Styles
+### Functions Supporting Multiple Parameter Passing Ways
 
 For functions that support multiple parameter types or counts, provide usage examples for different scenarios:
 
@@ -373,7 +373,7 @@ function createUser(nameOrOptions: string | UserOptions, age?: number): User {}
 
 ---
 
-## Comment Text Format
+## Comment Text Formatting
 
 ### Line Wrapping Rules
 
@@ -390,7 +390,7 @@ Comment text should wrap at approximately 100 characters (except for special con
 
 ### English/Chinese Separation
 
-In bilingual comments, English description comes first, Chinese description follows, separated by an empty line:
+In bilingual comments, English description comes first, Chinese description follows, separated by a blank line:
 
 ```typescript
 /**

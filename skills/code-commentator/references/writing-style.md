@@ -1,11 +1,11 @@
 # Comment Writing Style Guide
 
-This guide standardizes the writing style and language norms for comments, ensuring comments are professional and consistent.
+This guide standardizes comment writing style and language specifications to ensure professional and consistent comments.
 
 ## Table of Contents
 
 - [Tone Standards](#tone-standards)
-- [Language and Grammar Norms](#language-and-grammar-norms)
+- [Language and Grammar Specifications](#language-and-grammar-specifications)
 - [Example Improvements](#example-improvements)
 
 ---
@@ -14,19 +14,19 @@ This guide standardizes the writing style and language norms for comments, ensur
 
 ### Perspective and Tense
 
-- **Address**: Address the reader as "you"
+- **Addressing**: Use "you" to address readers
 - **Voice**: Use active voice
-- **Tense**: Use present tense (e.g., "The function returns..." not "The function will return...")
+- **Tense**: Use present tense (e.g., "function returns..." not "function will return...")
 
 ### Tone Requirements
 
 - **Professional**: Avoid colloquial and informal expressions
-- **Friendly**: Maintain a helpful tone, but not verbose
+- **Friendly**: Maintain helpful tone, but not verbose
 - **Direct**: Get to the point, avoid beating around the bush
 
 ### Clarity Requirements
 
-- **Vocabulary**: Use simple words, avoid overusing technical jargon
+- **Vocabulary**: Use simple words, avoid excessive use of technical jargon
 - **Slang**: Avoid slang and colloquial expressions
 - **Marketing Language**: Avoid promotional and exaggerated language
 
@@ -35,48 +35,48 @@ This guide standardizes the writing style and language norms for comments, ensur
 Clearly distinguish different levels of instructions:
 
 | Level | Words | Description |
-|--------|------|------|
-| Mandatory Requirement | **must**, **strictly prohibited** | Rules that must be followed, violation causes errors |
-| Strong Recommendation | **recommend**, **suggest** | Recommended best practices |
-| Optional Suggestion | **can**, **consider** | Suggestions that can be chosen based on situation |
+| -------- | ------------------ | ------------------------------ |
+| Mandatory | **Must**, **Forbidden** | Rules that must be followed, violations cause errors |
+| Strong Suggestion | **Recommended**, **Suggested** | Best practices that are recommended |
+| Optional | **Can**, **Consider** | Suggestions that can be chosen based on situation |
 
 **Avoid using**: "should", "ought to" and other vague expressions.
 
 ### Word Choice
 
-| Avoid | Recommend |
-|-------|-------|
-| please | (omit) |
-| allows you to | can |
-| enables you to | you can |
-| the function thinks | the function checks |
-| the array contains | the array has |
+| Avoid | Recommended |
+| -------- | -------- |
+| Please | (omit) |
+| Allows you | Can |
+| Allows you to | You can |
+| Function thinks | Function checks |
+| Array contains | Array has |
 
-**Can use contractions**: don't, it's, it has, it will, etc.
+**Abbreviations can be used**: don't, it's, it has, it will, etc.
 
 ---
 
-## Language and Grammar Norms
+## Language and Grammar Specifications
 
 ### Abbreviation Usage
 
-| Avoid | Recommend |
-|-------|-------|
+| Avoid | Recommended |
+| ------ | --------- |
 | e.g. | for example |
 | i.e. | that is |
-| etc. | etc |
-| vs. | compared with |
-| et al. | et al |
+| etc. | and so on |
+| vs. | compared to |
+| et al. | and others |
 
 ### Punctuation
 
-- **Serial comma**: Use commas to separate items in lists (e.g., "a, b, c")
-- **Chinese quotation marks**: Use `""` instead of `""`
-- **English quotation marks**: Use `""` instead of ''
+- **Serial commas**: Use commas in lists (e.g., "a, b, c")
+- **Chinese quotes**: Use `""` instead of `""`
+- **English quotes**: Use `""` instead of ''
 
 ### Date Format
 
-Use explicit formats, for example:
+Use clear format, for example:
 
 - ✅ "January 22, 2026"
 - ✅ "2026年1月22日"
@@ -85,47 +85,47 @@ Use explicit formats, for example:
 
 ### Conciseness
 
-| Avoid | Recommend |
-|-------|-------|
-| allows you to | can |
-| let's look at | look at |
-| next we will | we will |
-| this function's purpose is | the function |
+| Avoid | Recommended |
+| ---------------- | ---- |
+| Allows you/you | Can |
+| Let's look at | Look |
+| Next we will | We |
+| The function's role is | Function |
 
 ### Verb Selection
 
 Use precise, specific verbs:
 
-| Vague Verb | Precise Verbs |
-|------------|---------------|
-| process | parse, transform, calculate, validate |
-| get | read, fetch, extract, request |
-| set | configure, assign, initialize |
+| Vague Verbs | Precise Verbs |
+| -------- | ---------------------- |
+| Handle | Parse, Transform, Calculate, Validate |
+| Get | Read, Fetch, Extract, Request |
+| Set | Configure, Assign, Initialize |
 
 ---
 
 ## Example Improvements
 
-### Before Improvement (Not Recommended)
+### Before (Not Recommended)
 
 ```typescript
 /**
- * This function can help us process user input data.
- * It will return a processed result.
+ * 这个函数可以帮助我们对用户输入的数据进行处理。
+ * 它会返回一个处理后的结果。
  *
- * @param input - Input data
- * @returns Returns the processed result
+ * @param input - 输入的数据
+ * @returns 返回处理后的结果
  */
 function processData(input: any) {}
 
 /**
- * This class is used to manage users.
- * It can help us perform user authentication.
+ * 这个类是用来管理用户的。
+ * 它可以帮助我们进行用户认证。
  */
 class UserManager {}
 ```
 
-### After Improvement (Recommended)
+### After (Recommended)
 
 ```typescript
 /**
@@ -150,12 +150,12 @@ function processData(input: Data): Result {}
 class UserManager {}
 ```
 
-### Key Improvement Points
+### Key Improvements
 
-1. **Directly describe functionality**: Start by directly stating function/class purpose, not "this function is..."
-2. **Start with verb**: Function descriptions start with a verb (e.g., Process, Calculate, Validate)
+1. **Direct function description**: Start by directly describing what the function/class does, not "this function is..."
+2. **Use verbs to start**: Function descriptions start with verbs (e.g., Process, Calculate, Validate)
 3. **Avoid redundancy**: Remove redundant expressions like "can help us", "this"
-4. **Keep concise**: Keep each line within reasonable length
+4. **Be concise**: Keep each line within reasonable length
 
 ---
 
@@ -163,17 +163,17 @@ class UserManager {}
 
 ### Don't Over-comment
 
-Comments are meant to enhance readability, not to comment for the sake of commenting. Too many comments can actually harm code readability.
+Comments are meant to enhance readability, not to comment for the sake of commenting. Too many comments actually reduce code readability.
 
 **Before adding comments, ask yourself**:
 
 1. Can I quickly understand this code's intent without reading comments?
-2. Is the code naming clear enough?
-3. Does the comment provide information that the code itself cannot express?
+2. Are the code names clear enough?
+3. Do comments provide information that the code itself cannot express?
 
-If the answers indicate the code is clear enough, no comments are needed.
+If the answers indicate the code is already clear enough, no comments are needed.
 
-### Concise and Clear
+### Be Concise and Clear
 
 - Avoid redundant comments
 - Comments should have practical value
@@ -181,6 +181,6 @@ If the answers indicate the code is clear enough, no comments are needed.
 
 ### Example Requirements
 
-- All usage examples must be actually runnable code
+- All usage examples must be runnable code
 - Use meaningful names in examples
-- Avoid using meaningless placeholders like "foo", "bar"
+- Avoid meaningless placeholders like "foo", "bar"

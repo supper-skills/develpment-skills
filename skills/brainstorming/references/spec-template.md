@@ -23,14 +23,14 @@ design/specs/YYYY-MM-DD-<topic>-design.md
 
 ## Goal Positioning
 
-- **Primary Users**: [User groups]
+- **Primary Users**: [User group]
 - **Use Cases**: [Typical use cases]
 
 ## Constraints
 
-- **Technical Limitations**: [Tech stack, framework limitations]
-- **Time Limitations**: [Delivery time requirements]
-- **Resource Limitations**: [Manpower, budget limitations]
+- **Technical Constraints**: [Tech stack, framework limitations]
+- **Time Constraints**: [Delivery time requirements]
+- **Resource Constraints**: [Manpower, budget limitations]
 
 ## Success Criteria
 
@@ -41,13 +41,13 @@ design/specs/YYYY-MM-DD-<topic>-design.md
 
 ### System Structure
 
-[Overall system architecture description]
+[System overall architecture description]
 
 ### Component Division
 
 | Component | Responsibility | Dependencies |
-|-----------|---------------|--------------|
-| [Component Name] | [Responsibility Description] | [Dependent Components] |
+|------|------|------|
+| [Component name] | [Responsibility description] | [Dependency components] |
 
 ## Data Flow
 
@@ -56,8 +56,8 @@ design/specs/YYYY-MM-DD-<topic>-design.md
 ## Error Handling
 
 | Error Type | Handling Method |
-|------------|-----------------|
-| [Error Type] | [Handling Strategy] |
+|----------|----------|
+| [Error type] | [Handling strategy] |
 
 ## Testing Strategy
 
@@ -65,18 +65,18 @@ design/specs/YYYY-MM-DD-<topic>-design.md
 - **Integration Tests**: [Test scope]
 - **Acceptance Criteria**: [Pass conditions]
 
-## Decision Record
+## Decision Records
 
 | Decision | Rationale | Impact |
-|----------|-----------|--------|
-| [Decision Content] | [Why] | [Impact Scope] |
+|------|------|------|
+| [Decision content] | [Why] | [Impact scope] |
 ```
 
 ---
 
 ## Quality Requirements
 
-- No TODO, TBD, or placeholder content
+- No TODOs, TBDs, or placeholders
 - All sections have complete content
 - Success criteria are verifiable
 - Decisions have clear rationale

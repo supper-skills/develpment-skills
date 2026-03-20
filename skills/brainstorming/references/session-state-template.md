@@ -1,6 +1,6 @@
 # Session State File Template
 
-This template is used to track progress in multi-round conversations, solving the attention loss problem.
+This template is used to track progress in multi-round dialogues and solve attention loss problems.
 
 ---
 
@@ -10,7 +10,7 @@ This template is used to track progress in multi-round conversations, solving th
 design/.session-state.md
 ```
 
-All skills share the same state file, updated by phase.
+All skills share the same state file, updating by phase.
 
 ---
 
@@ -26,10 +26,10 @@ All skills share the same state file, updated by phase.
 - **Start Time**: YYYY-MM-DD HH:mm
 - **Last Updated**: YYYY-MM-DD HH:mm
 
-## Current Status
+## Current State
 
 - **Phase**: [Current phase name]
-- **Previous Step**: [Content just completed]
+- **Last Step**: [Just completed content]
 - **Next Step**: [Next step to execute]
 
 ## Confirmed Content
@@ -41,7 +41,7 @@ All skills share the same state file, updated by phase.
 
 ## Pending Issues
 
-<!-- Issues that need to be asked to user or resolved -->
+<!-- Issues to ask user or resolve -->
 
 - [ ] [Issue 1]
 - [ ] [Issue 2]
@@ -51,18 +51,18 @@ All skills share the same state file, updated by phase.
 
 ## Usage Rules
 
-### Creation Timing
+### When to Create
 
-Create when skill activates, path is `design/.session-state.md` under project root.
+Create when skill is activated, with path at `design/.session-state.md` under project root.
 
-### Update Timing
+### When to Update
 
-Update after each user confirmation or phase completion.
+Update after each user confirmation or phase milestone completion.
 
-### Recovery Timing
+### When to Restore
 
-Read at the start of each conversation round to restore context and continue.
+Read at the start of each dialogue round to restore context.
 
-### During Skill Transitions
+### On Skill Switch
 
-When transitioning between skills, update the "Skill" field, preserve confirmed content, and update current status.
+Update the "Skill" field on skill switch, keep confirmed content, update current state.

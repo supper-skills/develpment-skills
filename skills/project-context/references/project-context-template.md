@@ -1,28 +1,28 @@
 # Project Context Template
 
-This document records the ongoing status of the project, providing project background information for future feature planning.
+This document records the persistent state of the project, providing project background for future feature planning.
 
 ---
 
 ## Basic Information
 
 | Field | Content |
-|-------|---------|
-| **Project Name** | [Project Name] |
+|------|------|
+| **Project Name** | [Project name] |
 | **Tech Stack** | [Main languages, frameworks, technologies used] |
 | **Created Date** | YYYY-MM-DD |
-| **Last Update** | YYYY-MM-DD |
-| **Project Phase** | [Startup/In Development/Stable Maintenance/Refactoring] |
+| **Last Updated** | YYYY-MM-DD |
+| **Project Phase** | [Initial/Development/Stable Maintenance/Refactoring] |
 
 ---
 
 ## Completed Features
 
-Organized by feature modules, recording features that have been implemented and tested.
+Organized by feature modules, recording implemented and tested features.
 
 | Feature | Description | Completion Date | Status |
-|---------|-------------|-----------------|--------|
-| [Module Name] | [Feature Description] | YYYY-MM-DD | Stable/Needs Optimization |
+|------|------|---------|------|
+| [Module name] | [Feature description] | YYYY-MM-DD | Stable/Needs Optimization |
 
 ---
 
@@ -41,8 +41,8 @@ Organized by feature modules, recording features that have been implemented and 
 ### Module Division
 
 | Module | Responsibility | Dependencies |
-|--------|---------------|--------------|
-| [Module Name] | [Responsibility Description] | [Dependent Modules] |
+|------|------|---------|
+| [Module name] | [Responsibility description] | [Dependent modules] |
 
 ---
 
@@ -51,8 +51,8 @@ Organized by feature modules, recording features that have been implemented and 
 Record important architecture decisions and their rationale for future reference.
 
 | Date | Decision | Rationale | Impact |
-|------|----------|-----------|--------|
-| YYYY-MM-DD | [Decision Content] | [Decision Rationale] | [Impact Scope] |
+|------|------|------|------|
+| YYYY-MM-DD | [Decision content] | [Decision rationale] | [Impact scope] |
 
 ---
 
@@ -61,28 +61,28 @@ Record important architecture decisions and their rationale for future reference
 ### Project Dependencies
 
 | Dependency Name | Version | Purpose | Source |
-|-----------------|---------|---------|--------|
+|---------|------|------|------|
 | [Dependency] | x.x.x | [Purpose] | npm/pypi/cargo/etc |
 
 ### External Services
 
 | Service | Purpose | Configuration Location |
-|---------|---------|----------------------|
-| [Service Name] | [Purpose] | [Configuration File] |
+|------|------|---------|
+| [Service name] | [Purpose] | [Config file] |
 
 ---
 
 ## Technical Debt
 
 | Debt | Impact | Priority | Notes |
-|------|--------|----------|-------|
-| [Debt Description] | [Impact Description] | High/Medium/Low | [Notes] |
+|------|------|-------|------|
+| [Debt description] | [Impact description] | High/Medium/Low | [Notes] |
 
 ---
 
 ## Update History
 
 | Date | Update Content | Trigger Source |
-|------|---------------|----------------|
+|------|---------|---------|
 | YYYY-MM-DD | [Initial creation] | Project initialization |
 | YYYY-MM-DD | [Update content] | executing-plans completion |

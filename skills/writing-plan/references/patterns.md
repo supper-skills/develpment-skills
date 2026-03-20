@@ -1,12 +1,12 @@
 # Common Plan Pattern Library
 
-Predefined task templates that can be quickly reused for common scenarios.
+Pre-defined task templates that can be quickly reused for common scenarios.
 
 ---
 
 ## Usage
 
-When common patterns are identified, directly reference corresponding templates.
+When the following common patterns are identified, directly reference the corresponding template.
 
 ---
 
@@ -17,19 +17,19 @@ When common patterns are identified, directly reference corresponding templates.
 **Typical File Structure**:
 
 | File | Responsibility |
-|------|----------------|
+|------|------|
 | `src/models/<entity>.ts` | Data model definition |
 | `src/repositories/<entity>Repository.ts` | Data access layer |
 | `src/services/<entity>Service.ts` | Business logic layer |
 | `src/controllers/<entity>Controller.ts` | API controller |
 | `tests/<entity>.test.ts` | Test file |
 
-**Typical Task Order**:
+**Typical Task Sequence**:
 1. Define data model
 2. Implement Repository (CRUD operations)
 3. Implement Service (business logic)
 4. Implement Controller (API endpoints)
-5. Integration testing
+5. Integration tests
 
 ---
 
@@ -40,14 +40,14 @@ When common patterns are identified, directly reference corresponding templates.
 **Typical File Structure**:
 
 | File | Responsibility |
-|------|----------------|
+|------|------|
 | `src/auth/jwtHandler.ts` | JWT token handling |
 | `src/auth/middleware.ts` | Authentication middleware |
 | `src/auth/refreshHandler.ts` | Token refresh |
 | `src/services/userService.ts` | User service |
-| `tests/auth.test.ts` | Authentication test |
+| `tests/auth.test.ts` | Authentication tests |
 
-**Typical Task Order**:
+**Typical Task Sequence**:
 1. Implement JWT generation and verification
 2. Implement authentication middleware
 3. Implement login/logout logic
@@ -63,14 +63,14 @@ When common patterns are identified, directly reference corresponding templates.
 **Typical File Structure**:
 
 | File | Responsibility |
-|------|----------------|
+|------|------|
 | `src/clients/<service>Client.ts` | API client |
 | `src/adapters/<service>Adapter.ts` | Data adapter |
 | `src/services/<service>Service.ts` | Business encapsulation |
 | `src/mocks/<service>Mock.ts` | Mock implementation |
-| `tests/<service>.test.ts` | Integration test |
+| `tests/<service>.test.ts` | Integration tests |
 
-**Typical Task Order**:
+**Typical Task Sequence**:
 1. Define API client interface
 2. Implement request/response handling
 3. Implement data adapter layer
@@ -81,28 +81,28 @@ When common patterns are identified, directly reference corresponding templates.
 
 ## Pattern 4: Middleware/Plugin
 
-**Applicable Scenario**: Request handling pipeline, plugin systems
+**Applicable Scenario**: Request processing pipeline, plugin system
 
 **Typical File Structure**:
 
 | File | Responsibility |
-|------|----------------|
+|------|------|
 | `src/middleware/<name>.ts` | Middleware implementation |
 | `src/types/middleware.ts` | Type definitions |
 | `tests/middleware/<name>.test.ts` | Test file |
 
-**Typical Task Order**:
+**Typical Task Sequence**:
 1. Define middleware interface
 2. Implement core logic
 3. Implement configuration options
 4. Error handling
-5. Integration testing
+5. Integration tests
 
 ---
 
 ## Pattern Reference Method
 
-Reference patterns in the plan:
+Reference patterns in plans:
 
 ```markdown
 ### Task Group: User Management CRUD
